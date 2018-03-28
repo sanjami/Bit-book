@@ -8,7 +8,7 @@ class People extends Component {
         super(props) 
         this.state = {
             users : [],
-         
+            filterUsers : []
         };
     }
 
@@ -18,18 +18,23 @@ class People extends Component {
             
             this.setState({
                 users : allUsers
-             
             });
         });
     }
 
-
-
+    handleChange = (event) => {
+		let inputValue = event.target.value;
+		let newUsers = this.state.users.filter((user) => user.name)
+		this.setState({
+			filterUsers: newUsers
+		})
+	}
+    
     render() {
-        console.log(this.state.users)
+        console.log(this.state.filterUsers)
         return (
             <div>
-            {/* <Search  myUsers={this.state.users}/> */}
+            <Search  handleChange={this.handleChange} inputValue={this.state.inputValue}/>
             <UserList myUsers={this.state.users}/>
             </div>
 
