@@ -57,6 +57,9 @@ class DataServices {
         .then((postItem)=> new ImagePost(postItem))
     }
 
+
+
+
     getVideoPost = (id) => {
         return fetch(`http://bitbookapi.azurewebsites.net/api/VideoPosts/${id}`, {
             headers:{
@@ -73,6 +76,7 @@ class DataServices {
 
 
 
+
     getUser =() => {
         return fetch('http://bitbookapi.azurewebsites.net/api/users', {
             headers:{
@@ -85,6 +89,27 @@ class DataServices {
         .then((response)=> response.json())
         .then((userList)=> userList.map((user)=> new User(user)))
     }
+
+    addNewTextPost =(newTextPost) => {
+        return fetch ('http://bitbookapi.azurewebsites.net/api/TextPosts', {
+            // body: JSON.stringify(newTextPost),
+            headers:{
+                'Content-Type': 'application/json',
+                'Key': 'bitbook' ,
+                'SessionId' : '7A5D8FF8-B04D-4C8C-9812-8B44EB7E4C94'
+            },
+            method: 'POST',
+            data : {
+                "text": newTextPost
+            }
+
+        })
+        .then((response)=> response.json());
+        
+    
+    }
+
+}
 
 
 
