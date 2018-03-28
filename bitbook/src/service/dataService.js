@@ -17,7 +17,6 @@ class DataServices {
         .then((response) => {
             return response.json()})
         .then((postList)=> {
-            console.log(postList);
             let textPosts = postList.filter((post) => post.type === "text");
             let videoPosts = postList.filter((post) => post.type === "video");
             let imagePosts = postList.filter((post) => post.type === "image")
@@ -57,7 +56,7 @@ class DataServices {
     //     .then((response) => response.json())
     //     .then((postList)=> postList.map((post)=> new VideoPost(post)))
     // }
-    }
+    // }
 
 
 
