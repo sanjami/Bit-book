@@ -1,67 +1,62 @@
 import React, { Component } from 'react';
-import PostList from 'PostList';
-import MenuAllPosts from 'MenuAllPosts';
-import NewPostButton from 'NewPostButton';
-import dataServices from '../../service/dataService'
+import PostList from './PostList';
+import MenuAllPosts from './MenuAllPosts';
+//import NewPostButton from 'NewPostButton';
+import { dataServices } from '../../service/dataService'
 
 
 class Home extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
         this.state = {
-            textPost : [],
-            imagePost : [],
-            videoPost : []
+            textPosts: [],
+            videoPosts: [],
+            imagePosts: []
         }
     }
 
 
-    componentDidMount(){
-        dataServices.getTextPost()
-        .then((myTextPost)=>{
-            this.setState({
-                textPost : myTextPost
-            })
-        });
-        dataServices.getImagePost()
-        .then((myImagePost)=>{
-            this.setState({
-                imagePost : myImagePost
-            })
-        });
-        dataServices.getVideoPost()
-        .then((myVideoPost)=>{
-            this.setState({
-                videoPost : myVideoPost
-            })
-        })
+    componentDidMount() {
+        dataServices.getPosts()
+            .then((myPosts) => {
+                this.setState({
+                    textPosts: myPosts.textPosts,
+                    videoPosts: myPosts.videoPosts,
+                    imagePosts: myPosts.imagePosts
+                })
+            });
     }
 
-    allPosts = () => {
-        let allPostsData = this.state.textPost.concat(this.state.imagePost, this.state.videoPost);
-        let sortedPosts = allPostsData.sort(function(a, b){
+    sortPosts = () => {
+        let allPosts = this.state.textPosts.concat(this.state.videoPosts, this.state.imagePosts)
+        let sortPosts = allPosts.sort(function (a, b) {
             let keyA = new Date(a.dateCreated);
             let keyB = new Date(b.dateCreated);
-            if(keyA < keyB) return -1;
-            if(keyA > keyB) return 1;
-            return 0;   
+            if (keyA > keyB) return -1;
+            if (keyA < keyB) return 1;
+            return 0;
         })
-        // let postWithParseDate = allPostsData.map((post)=>{
-        //     return Date.parse(post.dateCreated)
-        // });
-
-        return sortedPosts;
+        return sortPosts;
     }
 
-render () {
-    return (
-        <div>
-            <PostList posts = {allPosts()}/>
-            {/* <MenuAllPosts />
-            <NewPostButton /> */}
-        </div>
-    )
-}
+    render() {
+        return (
+            <div className="ui three column grid">
+                <div class="row">
+                    <div className='four wide column'></div>
+                    <div className='eight wide column'><PostList posts={this.sortPosts()} />
+                    </div>
+                    <div className='four wide column'>
+                        <MenuAllPosts />
+                        {/* <NewPostButton /> */}
+                    </div>
+
+                </div>
+            </div>
+        )
+    }
 
 
 }
+
+export default Home;
