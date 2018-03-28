@@ -3,17 +3,15 @@ import UserListItem from './UserListItem';
 
 const UserList = (props) => {
 
-
-
-
     return (
        <div class="ui two column centered grid">
-       {props.people.map(() => {
+       <ul>
+       {props.myUsers.map((user,i) => {
           return ( <div class="column">
-           <UserListItem  />
+           <UserListItem  oneUser={user} key ={user}/>
         </div>)
        })}
-         
+         </ul>
       </div> 
     )
 }

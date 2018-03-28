@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-const Search = () => {
+const Search = (props) => {
     return (
         <div class="ui search">
             <input class="prompt" type="text" placeholder="Search..." />
