@@ -11,10 +11,12 @@ class Home extends Component {
         this.state = {
             textPosts: [],
             videoPosts: [],
-            imagePosts: []
+            imagePosts: [],
+            selectedPosts: []
         }
     }
 
+  
 
     componentDidMount() {
         dataServices.getPosts()
@@ -22,32 +24,37 @@ class Home extends Component {
                 this.setState({
                     textPosts: myPosts.textPosts,
                     videoPosts: myPosts.videoPosts,
-                    imagePosts: myPosts.imagePosts
+                    imagePosts: myPosts.imagePosts,
+                    selectedPosts:  myPosts.textPosts.concat(myPosts.videoPosts, myPosts.imagePosts)
                 })
             });
     }
 
-    sortPosts = () => {
-        let allPosts = this.state.textPosts.concat(this.state.videoPosts, this.state.imagePosts)
-        let sortPosts = allPosts.sort(function (a, b) {
-            let keyA = new Date(a.dateCreated);
-            let keyB = new Date(b.dateCreated);
-            if (keyA > keyB) return -1;
-            if (keyA < keyB) return 1;
-            return 0;
-        })
-        return sortPosts;
+    handleChange = (event, data) => {
+     if(data.value === "text"){
+         this.setState({
+             selectedPosts : this.state.textPosts
+         })
+     } else if(data.value === "images"){
+         this.setState({
+             selectedPosts : this.state.imagePosts
+         })
+     } else {
+         this.setState({
+             selectedPosts : this.state.videoPosts
+         })
+     }
     }
 
     render() {
         return (
             <div className="ui three column grid">
-                <div class="row">
+                <div className="row">
                     <div className='four wide column'></div>
-                    <div className='eight wide column'><PostList posts={this.sortPosts()} />
+                    <div className='eight wide column'><PostList posts={this.state.selectedPosts} />
                     </div>
                     <div className='four wide column'>
-                        <MenuAllPosts />
+                        <MenuAllPosts handleChange={this.handleChange}/>
                         {/* <NewPostButton /> */}
                     </div>
 
