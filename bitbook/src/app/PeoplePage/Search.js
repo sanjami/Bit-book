@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
 
 const Search = (props) => {
+    
     return (
-        <div class="ui search">
-            <input class="prompt" type="text" placeholder="Search..." />
-            <div class="results"></div>
+        <div className="ui grid">
+        <div class="four wide column"></div>
+        <div className="eight wide column">
+        <div className="ui category search">
+            <input className="prompt" type="search" onChange={props.handleChange} value={props.inputValue} placeholder="Search..." />
+        </div>
+        </div>
+        <div class="four wide column"></div>
         </div>
     )
 }
