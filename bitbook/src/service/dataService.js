@@ -1,6 +1,7 @@
 import TextPost from '../entities/TextPost';
 import ImagePost from '../entities/ImagePost';
 import VideoPost from '../entities/VideoPost';
+import User from '../entities/User';
 
 class DataServices {
 
@@ -42,6 +43,24 @@ class DataServices {
         .then((response) => response.json())
         .then((postList)=> postList.map((post)=> new VideoPost(post)))
     }
+
+
+    getUser =() => {
+        return fetch('http://bitbookapi.azurewebsites.net/api/users', {
+            headers:{
+                'Content-Type': 'application/json',
+                'Key': 'bitbook' ,
+                'SessionId' : '7A5D8FF8-B04D-4C8C-9812-8B44EB7E4C94'
+            },
+            method: 'GET'
+        })
+        .then((response)=> response.json())
+        .then((userList)=> userList.map((user)=> new User(user)))
+    }
+
 }
+
+
+
 
 export const dataServices = new DataServices();
