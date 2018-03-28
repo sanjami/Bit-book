@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Link } from "react-router-dom";
 
 const Header = () => {
     return (
@@ -13,9 +13,9 @@ const Header = () => {
                 <div className="column"></div>
                 <div className="column"></div>
                 <div className="column">
-                    <a className="item border">
+                    <Link to="/">
                         Feed
-            </a>
+                    </Link>
                 </div>
                 <div className="column">
 
