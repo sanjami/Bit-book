@@ -3,18 +3,46 @@ import React, { Component } from 'react';
 
 const Header = () => {
     return (
-        <div class="ui inverted menu">
-            <h1>Bitbook</h1>
-            <a class="active item">
-                Feed
+        <div className="ui grid header">
+            <div className="eight column row">
+                <div className="column"></div>
+                <div className="column">
+                <h1>Bitbook</h1>
+                </div>
+                <div className="column"></div>
+                <div className="column"></div>
+                <div className="column"></div>
+                <div className="column">
+                    <a className="item border">
+                        Feed
             </a>
-            <a class="item">
-                People
+                </div>
+                <div className="column">
+
+                    <a className="item border">
+                        People
             </a>
-            <a class="item">
-                Profile
+                </div>
+                <div className="column">
+                    <a className="item">
+                        Profile
             </a>
+                </div>
+            </div>
         </div>
+
+        // <div className="ui inverted menu ui-grid ui three column grid">
+        // <div className='row'>
+        // <div className ='column'>
+        //     <h1>Bitbook</h1>
+        //  </div>
+        //  <div className='column'>   
+
+
+        //     </div>
+        //     </div>
+        // </div>
+
     )
 }
 

@@ -3,3 +3,32 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.list-users {
+  list-style: none;
+  border: 1px solid gray;
+  border-radius: 10px;
+}
+
+.user-picture {
+  float: left;
+}
+
+.user-description {
+  float: right;
+}
+
+.header {
+  background-color: rgb(105, 153, 199);
+}
+
+.header a {
+  color: black;
+}
+
+.footer {
+  background-color: rgb(105, 153, 199);
+  text-align: center;
+  padding: 23px 0;
+}
+
