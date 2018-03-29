@@ -16,9 +16,15 @@ class AddCommentForm extends React.Component {
   
     handleSubmit = (event, props) => {
       dataServices.addComment({
-          "body" : this.state.value,
-        "postId" : props.postId
-        });
+          body : this.state.value,
+        postId : this.props.postId
+        })
+        .then((result) => {
+          this.setState({
+            value: ''
+          })
+          this.props.invalidate()
+        })
     }
   
     render() {
@@ -27,7 +33,7 @@ class AddCommentForm extends React.Component {
         <Form.Field>
             <input type="text" value={this.state.value} onChange={this.handleChange} />
             </Form.Field>
-          <Button type="submit" value="Submit" >SEND</Button>
+          <Button type="submit" value="Submit" disabled={this.state.value?'':"disabled"}>SEND</Button>
         </Form>
       );
     }
