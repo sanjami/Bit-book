@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from "react-router-dom";
 
 const Header = () => {
@@ -7,7 +7,7 @@ const Header = () => {
             <div className="eight column row">
                 <div className="column"></div>
                 <div className="column">
-                <h1>Bitbook</h1>
+                    <h1>Bitbook</h1>
                 </div>
                 <div className="column"></div>
                 <div className="column"></div>
@@ -19,14 +19,15 @@ const Header = () => {
                 </div>
                 <div className="column">
 
-                    <a className="item border">
+                    <Link to="/people">
                         People
-            </a>
+                    </Link>
+
                 </div>
                 <div className="column">
-                    <a className="item">
+                    <Link to="/profile">
                         Profile
-            </a>
+                    </Link>
                 </div>
             </div>
         </div>
