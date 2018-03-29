@@ -17,16 +17,26 @@ body {
   float: right;
 }
 
-.header {
-  background-color: rgb(105, 153, 199);
+.bgColor {
+  background-color:#b3d9ff;
+  height: 82px;
 }
 
-.header a {
-  color: black;
+.nav-links {
+  color: #1b1c1d;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 21px;
+  font-size: 17px;
+}
+
+.logo-app {
+  font-size: 37px;
+  padding-top: 5px;
 }
 
 .footer {
-  background-color: rgb(105, 153, 199);
+  background-color: #b3d9ff;
   text-align: center;
   padding: 23px 0;
   margin-top: 20px;
@@ -37,3 +47,68 @@ body {
   margin: 0 auto;
   border-radius: 0;
 }
+
+.btn {
+  position: fixed;
+  top: 96px;
+  right: 100px;
+}
+
+.menuBtn {
+  position: fixed;
+  top:96px;
+  right: 223px;
+}
+
+.showFeed {
+  position: fixed;
+  top:73px;
+  right: 234px;
+}
+
+.ui.compact.menu .item:last-child {
+  background-color: rgb(221, 147, 188);
+}
+
+.Modal{
+  position: absolute;
+  top: 183px;
+  left: 167px;
+  right: 103px;
+  bottom: 358px;
+  background-color: white;
+  border: 1px solid black;
+}
+
+.input-field {
+  margin-left: 81px;
+  margin-top: 50px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 218px;
+  left: 151px;
+}
+
+.post-btn {
+  position: absolute;
+  top: 218px;
+  left: 80px;
+}
+
+.input-text {
+  padding-top: 30px;
+  padding-bottom: 25px;
+  font-size: 19px;
+}
+
+.headline {
+  color: red;
+}
+
+.input-item {
+  width: 50%;
+  height: 37px;
+}
+

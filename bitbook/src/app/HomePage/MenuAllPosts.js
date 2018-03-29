@@ -4,8 +4,8 @@ import { Dropdown, Menu } from 'semantic-ui-react'
 const MenuAllPosts = (props) => {
 
     return <div>
-        <h4>Show on feed</h4>
-        <Menu compact>
+        <h4 className='showFeed'>Show on feed</h4>
+        <Menu compact className='menuBtn'>
             <Dropdown text='All posts' onChange={props.handleChange} options={[
                 { key: 1, text: 'Video', value: 'video' },
                 { key: 2, text: 'Images', value: 'images' },

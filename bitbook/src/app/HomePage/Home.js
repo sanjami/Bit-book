@@ -148,13 +148,13 @@ class Home extends Component {
 
     renderTextModal = () => {
         return (
-            <div>
-                <h2 ref={subtitle => this.subtitle = subtitle}>New text post</h2>
-                <button onClick={this.closeModal}>close</button>
-                <div>Text content</div>
+            <div className = 'input-field'>
+                <h2 ref={subtitle => this.subtitle = subtitle} className='headline'>New text post</h2>
+                <button onClick={this.closeModal} className='close-btn'>CLOSE</button>
+                <div className = 'input-text'>Text content</div>
                 <form>
-                    <input type='text' value={this.state.input} onChange={this.handleInputChange} />
-                    <button onClick={this.checkTextInput}>POST</button>
+                    <input type='text' value={this.state.input} onChange={this.handleInputChange} className='input-item' />
+                    <button onClick={this.checkTextInput} className='post-btn'>POST</button>
                 </form>
                 <div>{this.state.message}</div>
             </div>
@@ -163,15 +163,14 @@ class Home extends Component {
     }
 
     renderImageModal = () => {
-        console.log(this.state.input)
         return (
-            <div>
-                <h2 ref={subtitle => this.subtitle = subtitle}>New image post</h2>
-                <button onClick={this.closeModal}>close</button>
-                <div>Image source</div>
+            <div className = 'input-field'>
+                <h2 ref={subtitle => this.subtitle = subtitle} className='headline'>New image post</h2>
+                <button onClick={this.closeModal} className='close-btn'>CLOSE</button>
+                <div className ='input-text'>Image source</div>
                 <form>
-                    <input type='url' onChange={this.handleInputChange} />
-                    <button onClick={this.checkImageInput}>POST</button>
+                    <input type='url' onChange={this.handleInputChange} className='input-item' />
+                    <button onClick={this.checkImageInput} className='post-btn'>POST</button>
                 </form>
                 <div>{this.state.message}</div>
             </div>
@@ -181,13 +180,13 @@ class Home extends Component {
 
     renderVideoModal = () => {
         return (
-            <div>
-                <h2 ref={subtitle => this.subtitle = subtitle}>New video post</h2>
-                <button onClick={this.closeModal}>close</button>
-                <div>YouTube video link</div>
+            <div className = 'input-field'>
+                <h2 ref={subtitle => this.subtitle = subtitle} className='headline'>New video post</h2>
+                <button onClick={this.closeModal} className='close-btn'>CLOSE</button>
+                <div className ='input-text'>YouTube video link</div>
                 <form>
-                    <input type='url' onChange={this.handleInputChange}/>
-                    <button onClick={this.checkVideoInput}>POST</button>
+                    <input type='url' onChange={this.handleInputChange} className='input-item'/>
+                    <button onClick={this.checkVideoInput} className='post-btn'>POST</button>
                 </form>
                 <div>{this.state.message}</div>
             </div>
@@ -212,7 +211,7 @@ class Home extends Component {
                     <div className='four wide column'>
 
 
-                        <NewPostButton openPost={this.openModal} />
+                        <NewPostButton className='dropdown' openPost={this.openModal} />
 
                         <MenuAllPosts handleChange={this.handleChange} />
 
@@ -223,8 +222,9 @@ class Home extends Component {
                     isOpen={this.state.modalIsOpen}
                     onAfterOpen={this.afterOpenModal}
                     onRequestClose={this.closeModal}
-                    // style={customStyles}
+                    className="Modal"
                     contentLabel="Example Modal"
+                 
                 >
 
                     {this.renderModalComponent()}

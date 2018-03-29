@@ -31,22 +31,6 @@ class DataServices {
 
                 return objectPosts
             })
-
-        .then((response) => {
-            return response.json()})
-        .then((postList)=> {
-            let textPosts = postList.filter((post) => post.type === "text");
-            let videoPosts = postList.filter((post) => post.type === "video");
-            let imagePosts = postList.filter((post) => post.type === "image")
-            let objectPosts = {
-                textPosts : textPosts.map((post) => new TextPost(post)),
-                videoPosts : videoPosts.map((post) => new VideoPost(post)),
-                imagePosts : imagePosts.map((post) => new ImagePost(post))
-        }
-    
-    return objectPosts})
-        
-
     }
 
     getTextPost = (id) => {
