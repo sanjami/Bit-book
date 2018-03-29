@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Checkbox, Form } from 'semantic-ui-react'
+import { Button, Checkbox, Form, Container } from 'semantic-ui-react'
 import { dataServices } from '../../service/dataService';
 
 class AddCommentForm extends React.Component {
@@ -14,7 +14,7 @@ class AddCommentForm extends React.Component {
       this.setState({value: event.target.value});
     }
   
-    handleSubmit = (event, props) => {
+    handleSubmit = (event) => {
       dataServices.addComment({
           body : this.state.value,
         postId : this.props.postId
@@ -26,15 +26,18 @@ class AddCommentForm extends React.Component {
           this.props.invalidate()
         })
     }
-  
+
+
     render() {
       return (
+        <Container id='addCommentForm'>
         <Form onSubmit={this.handleSubmit}>
         <Form.Field>
             <input type="text" value={this.state.value} onChange={this.handleChange} />
             </Form.Field>
-          <Button type="submit" value="Submit" disabled={this.state.value?'':"disabled"}>SEND</Button>
+          <Button type="submit" value="Submit" disabled={this.state.value?false:true} id="submitCommentButton">SEND</Button>
         </Form>
+        </Container>
       );
     }
   }

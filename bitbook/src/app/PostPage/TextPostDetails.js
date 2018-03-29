@@ -20,6 +20,7 @@ class TextPostDetails extends Component {
                 this.setState({
                     comments: myComments
                 })
+             
             })
     }
 
@@ -43,9 +44,13 @@ class TextPostDetails extends Component {
                 <div className="row">
                     <div className='four wide column'></div>
                     <div className='eight wide column'>
+                    <div className="ui one cards">
                         <PostItem onePost={this.state.post} />
+                        </div>
                         <AddCommentForm postId={this.state.post.id} invalidate={this.onInvalidate} />
+                        
                         <CommentList comments={this.state.comments} />
+                        
                     </div>
                     <div className='four wide column'>
                     </div>

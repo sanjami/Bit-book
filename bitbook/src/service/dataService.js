@@ -16,7 +16,8 @@ class DataServices {
             method: 'GET'
         })
         .then((response) => {
-            return response.json()})
+            return response.json();
+        })
         .then((postList)=> {
             let textPosts = postList.filter((post) => post.type === "text");
             let videoPosts = postList.filter((post) => post.type === "video");
@@ -25,10 +26,12 @@ class DataServices {
                 textPosts : textPosts.map((post) => new TextPost(post)),
                 videoPosts : videoPosts.map((post) => new VideoPost(post)),
                 imagePosts : imagePosts.map((post) => new ImagePost(post))
-        }
+            }
     
-    return objectPosts})
-        
+            return objectPosts})
+            .catch((error) => {
+                console.log(error)
+            })
     }
 
     getTextPost = (id) => {
@@ -76,8 +79,7 @@ class DataServices {
 
 
 
-
-    getUser =() => {
+    getUsers =() => {
         return fetch('http://bitbookapi.azurewebsites.net/api/users', {
             headers:{
                 'Content-Type': 'application/json',
@@ -88,6 +90,19 @@ class DataServices {
         })
         .then((response)=> response.json())
         .then((userList)=> userList.map((user)=> new User(user)))
+    }
+
+    getUser =(id) => {
+        return fetch(`http://bitbookapi.azurewebsites.net/api/users/${id}`, {
+            headers:{
+                'Content-Type': 'application/json',
+                'Key': 'bitbook' ,
+                'SessionId' : '7A5D8FF8-B04D-4C8C-9812-8B44EB7E4C94'
+            },
+            method: 'GET'
+        })
+        .then((response)=> response.json())
+        .then((user)=> new User(user));
     }
 
     addNewTextPost =(newTextPost) => {

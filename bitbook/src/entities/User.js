@@ -3,9 +3,13 @@ class User {
     constructor(user){
         this.name = user.name;
         this.id = user.id;
-        this.description = user.aboutShort;
+        this.shortAbout = user.aboutShort;
         this.upDate = user.lastPostDate;
-        this.address = user.avatarUrl;
+        this.avatarUrl = user.avatarUrl;
+        this.postsCount = user.postsCount;
+        this.commentsCount = user.commentsCount;
+        this.email = user.email;
+        this.about = user.about
     }
 }
 
