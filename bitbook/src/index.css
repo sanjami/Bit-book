@@ -29,6 +29,7 @@ body {
   background-color: rgb(105, 153, 199);
   text-align: center;
   padding: 23px 0;
+  margin-top: 20px;
 }
 
 .ui.search>.prompt {

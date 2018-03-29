@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 import { dataServices } from '../../service/dataService';
 import PostList from '../HomePage/PostList';
 import PostItem from '../sharedComponents/PostItem';
+import AddCommentForm from './AddCommentForm';
+import CommentList from './CommentList'
 
 class VideoPostDetails extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            post: {}
+            post: {},
+            comments : []
         }
     }
 componentDidMount() {
@@ -16,6 +19,12 @@ componentDidMount() {
         this.setState({
             post : myPost
         })
+        dataServices.getComment(myPost.id)
+            .then((myComments) => {
+                this.setState({
+                    comments : myComments
+                })
+            })
     })
 }
 
@@ -26,6 +35,8 @@ componentDidMount() {
                     <div className='four wide column'></div>
                     <div className='eight wide column'>
                         <PostItem onePost={this.state.post} />
+                        <AddCommentForm postId={this.state.post.id}/>
+                        <CommentList comments={this.state.comments}/>
                     </div>
                     <div className='four wide column'>
                     </div>

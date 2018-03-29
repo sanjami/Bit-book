@@ -2,6 +2,7 @@ import TextPost from '../entities/TextPost';
 import ImagePost from '../entities/ImagePost';
 import VideoPost from '../entities/VideoPost';
 import User from '../entities/User';
+import Comment from '../entities/Comment'
 
 class DataServices {
 
@@ -14,6 +15,7 @@ class DataServices {
             },
             method: 'GET'
         })
+
             .then((response) => {
                 return response.json()
             })
@@ -29,6 +31,22 @@ class DataServices {
 
                 return objectPosts
             })
+
+        .then((response) => {
+            return response.json()})
+        .then((postList)=> {
+            let textPosts = postList.filter((post) => post.type === "text");
+            let videoPosts = postList.filter((post) => post.type === "video");
+            let imagePosts = postList.filter((post) => post.type === "image")
+            let objectPosts = {
+                textPosts : textPosts.map((post) => new TextPost(post)),
+                videoPosts : videoPosts.map((post) => new VideoPost(post)),
+                imagePosts : imagePosts.map((post) => new ImagePost(post))
+        }
+    
+    return objectPosts})
+        
+
     }
 
     getTextPost = (id) => {
@@ -122,6 +140,7 @@ class DataServices {
             .then((response) => response.json());
     }
 
+
     addNewVideoPost = (newVideoPost) => {
         return fetch('http://bitbookapi.azurewebsites.net/api/VideoPosts', {
             // body: JSON.stringify(newVideoPost),
@@ -153,6 +172,36 @@ class DataServices {
         })
             .then((response) => console.log(response))
     }
+
+
+
+addComment = (data) => {
+console.log(data);
+    return fetch('http://bitbookapi.azurewebsites.net/api/comments', {
+        headers:{
+            'Content-Type': 'application/json',
+            'Key': 'bitbook' ,
+            'SessionId' : '7A5D8FF8-B04D-4C8C-9812-8B44EB7E4C94'
+        },
+        body: JSON.stringify(data),
+        method: 'POST'
+    })
+    .then((response) => response.json());
+}
+
+getComment = (id) => {
+    return fetch(`http://bitbookapi.azurewebsites.net/api/comments?postId=${id}` , {
+        headers:{
+            'Content-Type': 'application/json',
+            'Key': 'bitbook' ,
+            'SessionId' : '7A5D8FF8-B04D-4C8C-9812-8B44EB7E4C94'
+        },
+        method: 'GET'       
+    })
+    .then((response) => (response.json()))
+    .then((comments) => comments.map((comment) => new Comment(comment)))
+}
+
 
 }
 
