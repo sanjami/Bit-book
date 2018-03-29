@@ -8,9 +8,9 @@ const UserList = (props) => {
       <div class="four wide column"></div>
       <div className="eight wide column">
        <ul>
-       {props.myUsers.map((user,i) => {
-          return ( <div class="column">
-           <UserListItem  oneUser={user} key ={user}/>
+       {props.myUsers.map((user) => {
+          return ( <div class="column" key ={user.id}>
+           <UserListItem  oneUser={user}/>
         </div>)
        })}
          </ul>

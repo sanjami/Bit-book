@@ -1,12 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from "react-router-dom";
 
 const Header = () => {
     return (
+
         <div className="ui grid bgColor">
         <div className="two wide column"></div>
             <div className="two wide column">
                 <h1 className='logo-app'>Bitbook</h1>
+
+        <div className="ui grid header">
+            <div className="eight column row">
+                <div className="column"></div>
+                <div className="column">
+                    <h1>Bitbook</h1>
+
                 </div>
             <div className="eight wide column"></div>
                 <div className="one wide column nav-links">
@@ -16,14 +24,20 @@ const Header = () => {
                 </div>
                 <div className="one wide column nav-links">
 
-                    <a className="item border">
+                    <Link to="/people">
                         People
-            </a>
+                    </Link>
+
                 </div>
+
                 <div className="one wide column nav-links">
                     <a className="item">
+
+                <div className="column">
+                    <Link to="/profile">
+
                         Profile
-            </a>
+                    </Link>
                 </div>
             </div>
 

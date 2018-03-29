@@ -13,7 +13,7 @@ class People extends Component {
     }
 
     componentDidMount() {
-        dataServices.getUser()
+        dataServices.getUsers()
         .then(allUsers => {
             
             this.setState({

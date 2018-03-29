@@ -48,6 +48,7 @@ body {
   border-radius: 0;
 }
 
+
 .btn {
   position: fixed;
   top: 96px;
@@ -110,5 +111,23 @@ body {
 .input-item {
   width: 50%;
   height: 37px;
+}
+
+
+#userCard, #postAndCommentsCount{
+  margin-top: 30px;
+  text-align: center
+}
+
+#menu{
+  margin-right: 30px;
+}
+
+#submitCommentButton{
+margin-bottom: 20px;
+background-color:rgb(105, 153, 199);
+}
+#addCommentForm{
+  margin-top: 20px;
 }
 
