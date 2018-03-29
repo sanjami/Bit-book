@@ -2,6 +2,7 @@ import TextPost from '../entities/TextPost';
 import ImagePost from '../entities/ImagePost';
 import VideoPost from '../entities/VideoPost';
 import User from '../entities/User';
+import Comment from '../entities/Comment'
 
 class DataServices {
 
@@ -17,7 +18,6 @@ class DataServices {
         .then((response) => {
             return response.json()})
         .then((postList)=> {
-            console.log(postList);
             let textPosts = postList.filter((post) => post.type === "text");
             let videoPosts = postList.filter((post) => post.type === "video");
             let imagePosts = postList.filter((post) => post.type === "image")
@@ -109,11 +109,10 @@ class DataServices {
     
     }
 
-}
-
 
 
 addComment = (data) => {
+console.log(data);
     return fetch('http://bitbookapi.azurewebsites.net/api/comments', {
         headers:{
             'Content-Type': 'application/json',
@@ -123,7 +122,20 @@ addComment = (data) => {
         body: JSON.stringify(data),
         method: 'POST'
     })
-    .then((response) => console.log(response))
+    .then((response) => response.json());
+}
+
+getComment = (id) => {
+    return fetch(`http://bitbookapi.azurewebsites.net/api/comments?postId=${id}` , {
+        headers:{
+            'Content-Type': 'application/json',
+            'Key': 'bitbook' ,
+            'SessionId' : '7A5D8FF8-B04D-4C8C-9812-8B44EB7E4C94'
+        },
+        method: 'GET'       
+    })
+    .then((response) => (response.json()))
+    .then((comments) => comments.map((comment) => new Comment(comment)))
 }
 
 }

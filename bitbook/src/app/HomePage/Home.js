@@ -65,6 +65,7 @@ class Home extends Component {
             return 0;
         })
         return sortPosts;
+    }
 
     handleChange = (event, data) => {
      if(data.value === "text"){
@@ -148,7 +149,7 @@ class Home extends Component {
         )
     }
 
-    renderModalComponent() {
+    renderModalComponent = () => {
         switch (this.state.currentModal) {
             case "text" : return this.renderTextModal()
             case "image": return this.renderImageModal()
