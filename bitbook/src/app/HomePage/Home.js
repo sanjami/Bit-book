@@ -37,18 +37,26 @@ class Home extends Component {
         this.getAllPosts()
     }
 
+
+
     handleInputChange = (event) => {
         this.setState({
             input: event.target.value
         })
     }
 
+
     checkTextInput = () => {
-        if (this.state.input.length > 1000) {
+        if (this.state.input.length > 1000 ) {
             this.setState({
                 message: 'Text is too long'
             });
-        } else {
+        } else if (this.state.input == ''){
+            this.setState({
+                message: 'Text is missing'
+            });
+        }
+        else {
             dataServices.addNewTextPost(this.state.input)
                 .then((response) => {
                     this.getAllPosts();
@@ -60,8 +68,8 @@ class Home extends Component {
 
     checkImageInput = () => {
         const myUrlLength = this.state.input.length;
-        const cutUrl = this.state.input.slice(myUrlLength -3);
-        const cutUrlJpeg = this.state.input.slice(myUrlLength -4);
+        const cutUrl = this.state.input.slice(myUrlLength - 3);
+        const cutUrlJpeg = this.state.input.slice(myUrlLength - 4);
 
         if (cutUrl != 'jpg' && cutUrl != 'png' && cutUrl != 'gif' && cutUrlJpeg != 'jpeg') {
             this.setState({
@@ -77,25 +85,24 @@ class Home extends Component {
         }
     }
 
-    createLink = (link) =>{
+    createLink = (link) => {
         return link.replace("watch?v=", "embed/");
     }
 
     checkVideoInput = () => {
 
-        if (this.state.input.includes("embed/")) {
-            this.setState({
-                message: 'Post is not video'
-            });
-        } else {
+        if (this.state.input.includes("watch?v=")) {
             let data = this.createLink(this.state.input);
-            console.log(data)
             dataServices.addNewVideoPost(data)
                 .then((response) => {
                     this.getAllPosts();
                     this.closeModal();
-                }
-                )
+                })
+
+        } else {
+            this.setState({
+                message: 'Post is not video'
+            })
         }
     }
 
@@ -134,24 +141,20 @@ class Home extends Component {
         this.setState({ modalIsOpen: true, currentModal: modalName });
     }
 
-    afterOpenModal = () => {
-        // references are now sync'd and can be accessed.
-        // this.subtitle.style.color = '#f00';
-    }
-
     closeModal = () => {
         this.setState({
             modalIsOpen: false,
-            input : ''
+            input: '',
+            message: ''
         });
     }
 
     renderTextModal = () => {
         return (
-            <div className = 'input-field'>
+            <div className='input-field'>
                 <h2 ref={subtitle => this.subtitle = subtitle} className='headline'>New text post</h2>
                 <button onClick={this.closeModal} className='close-btn'>CLOSE</button>
-                <div className = 'input-text'>Text content</div>
+                <div className='input-text'>Text content</div>
                 <form>
                     <input type='text' value={this.state.input} onChange={this.handleInputChange} className='input-item' />
                     <button onClick={this.checkTextInput} className='post-btn'>POST</button>
@@ -164,10 +167,10 @@ class Home extends Component {
 
     renderImageModal = () => {
         return (
-            <div className = 'input-field'>
+            <div className='input-field'>
                 <h2 ref={subtitle => this.subtitle = subtitle} className='headline'>New image post</h2>
                 <button onClick={this.closeModal} className='close-btn'>CLOSE</button>
-                <div className ='input-text'>Image source</div>
+                <div className='input-text'>Image source</div>
                 <form>
                     <input type='url' onChange={this.handleInputChange} className='input-item' />
                     <button onClick={this.checkImageInput} className='post-btn'>POST</button>
@@ -180,12 +183,12 @@ class Home extends Component {
 
     renderVideoModal = () => {
         return (
-            <div className = 'input-field'>
+            <div className='input-field'>
                 <h2 ref={subtitle => this.subtitle = subtitle} className='headline'>New video post</h2>
                 <button onClick={this.closeModal} className='close-btn'>CLOSE</button>
-                <div className ='input-text'>YouTube video link</div>
+                <div className='input-text'>YouTube video link</div>
                 <form>
-                    <input type='url' onChange={this.handleInputChange} className='input-item'/>
+                    <input type='url' onChange={this.handleInputChange} className='input-item' />
                     <button onClick={this.checkVideoInput} className='post-btn'>POST</button>
                 </form>
                 <div>{this.state.message}</div>
@@ -220,11 +223,10 @@ class Home extends Component {
                 </div>
                 <Modal
                     isOpen={this.state.modalIsOpen}
-                    onAfterOpen={this.afterOpenModal}
                     onRequestClose={this.closeModal}
                     className="Modal"
                     contentLabel="Example Modal"
-                 
+
                 >
 
                     {this.renderModalComponent()}

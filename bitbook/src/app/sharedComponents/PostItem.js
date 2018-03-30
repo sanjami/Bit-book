@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import { Container } from 'semantic-ui-react'
+import { Container } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
+
+
 
 const PostItem = (props) => {
     if (props.onePost.type === "text") {
@@ -13,6 +16,7 @@ const PostItem = (props) => {
                     <i className="comment icon"></i>
                     {props.onePost.commentsNum}
                 </span>
+            <div className='content'><Button primary className='delete-btn' onClick={props.deleteMyPost}>Delete</Button></div>
                 <i className="file alternate icon"></i>
                 {props.onePost.type}
             </div>
@@ -28,6 +32,7 @@ const PostItem = (props) => {
                         <i className="comment icon"></i>
                         {props.onePost.commentsNum}
                     </span>
+                <div className='content'><Button primary className='delete-btn' onClick={props.deleteMyPost}>Delete</Button></div>
                     <i className="image icon"></i>
                     {props.onePost.type}
                 </div>
@@ -41,6 +46,7 @@ const PostItem = (props) => {
                         <i className="comment icon"></i>
                         {props.onePost.commentsNum}
                     </span>
+                    <div className='content'><Button primary className='delete-btn' onClick={props.deleteMyPost}>Delete</Button></div>
                     <i className="video icon"></i>
                     {props.onePost.type}
                 </div>

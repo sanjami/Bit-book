@@ -13,20 +13,28 @@ class VideoPostDetails extends Component {
             comments : []
         }
     }
-componentDidMount() {
-    dataServices.getVideoPost(this.props.match.params.id)
-    .then((myPost) => {
-        this.setState({
-            post : myPost
-        })
-        dataServices.getComment(myPost.id)
-            .then((myComments) => {
-                this.setState({
-                    comments : myComments
-                })
+    componentDidMount() {
+        dataServices.getVideoPost(this.props.match.params.id)
+        .then((myPost) => {
+            this.setState({
+                post : myPost
             })
-    })
-}
+            dataServices.getComment(myPost.id)
+                .then((myComments) => {
+                    this.setState({
+                        comments : myComments
+                    })
+                })
+        })
+    }
+
+    deleteMyVideoPost = (event) => {
+        event.preventDefault() 
+        dataServices.deletePosts(this.state.post.id)
+        .then((textPost) => {
+            window.location.assign("http://localhost:3000/#/");
+        })
+    }
 
     render() {
         return(
@@ -35,7 +43,7 @@ componentDidMount() {
                     <div className='four wide column'></div>
                     <div className='eight wide column'>
                     <div className="ui one cards">
-                        <PostItem onePost={this.state.post} />
+                        <PostItem onePost={this.state.post} deleteMyPost={this.deleteMyVideoPost}/>
                         </div>
                         <AddCommentForm postId={this.state.post.id}/>
                         <CommentList comments={this.state.comments}/>
