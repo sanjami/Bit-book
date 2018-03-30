@@ -88,13 +88,13 @@ body {
 
 .close-btn {
   position: absolute;
-  top: 218px;
+  top: 230px;
   left: 151px;
 }
 
 .post-btn {
   position: absolute;
-  top: 218px;
+  top: 230px;
   left: 80px;
 }
 
@@ -131,6 +131,16 @@ background-color:rgb(105, 153, 199);
   margin-top: 20px;
 }
 
+
 #photoForm img{
   width:50px;
 }
+
+.content .delete-btn {
+  float: right;
+  margin-top: -3%;
+
+}
+
+
+
