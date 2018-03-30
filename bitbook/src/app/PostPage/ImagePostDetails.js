@@ -28,6 +28,14 @@ class ImagePostDetails extends Component {
         })
     }
 
+    deleteMyImagePost = (event) => {
+        event.preventDefault() 
+        dataServices.deletePosts(this.state.post.id)
+        .then((textPost) => {
+            window.location.assign("http://localhost:3000/#/");
+        })
+    }
+
     render() {
         console.log(this.state.comments);
         return (
@@ -36,7 +44,7 @@ class ImagePostDetails extends Component {
                     <div className='four wide column'></div>
                     <div className='eight wide column'>
                     <div className="ui one cards">
-                        <PostItem onePost={this.state.post} />
+                        <PostItem onePost={this.state.post} deleteMyPost={this.deleteMyImagePost} />
                         </div>
                         <AddCommentForm postId={this.state.post.id}/>
                         <CommentList comments={this.state.comments}/>
