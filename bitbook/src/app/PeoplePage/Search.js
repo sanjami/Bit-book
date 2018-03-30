@@ -4,13 +4,13 @@ const Search = (props) => {
     
     return (
         <div className="ui grid">
-        <div className="four wide column"></div>
-        <div className="eight wide column">
+        <div className="six wide column"></div>
+        <div className="four wide column">
         <div className="ui category search">
-            <input className="prompt" type="search" onChange={props.handleChange} value={props.inputValue} placeholder="Search..." />
+            <input className="prompt search-users" type="search" onChange={props.handleChange} value={props.inputValue} placeholder="Search..." />
         </div>
         </div>
-        <div className="four wide column"></div>
+        <div className="six wide column"></div>
         </div>
     )
 }
