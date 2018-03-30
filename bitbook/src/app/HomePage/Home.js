@@ -15,6 +15,7 @@ class Home extends Component {
             imagePosts: [],
             modalIsOpen: false,
             input: "",
+            feedPosts: [],
             selectedPosts: [],
             message: ''
         }
@@ -28,7 +29,7 @@ class Home extends Component {
                     textPosts: myPosts.textPosts,
                     videoPosts: myPosts.videoPosts,
                     imagePosts: myPosts.imagePosts,
-                    selectedPosts: myPosts.textPosts.concat(myPosts.videoPosts, myPosts.imagePosts)
+                    feedPosts: myPosts.textPosts.concat(myPosts.videoPosts, myPosts.imagePosts)
                 })
             });
     }
@@ -89,7 +90,6 @@ class Home extends Component {
             });
         } else {
             let data = this.createLink(this.state.input);
-            console.log(data)
             dataServices.addNewVideoPost(data)
                 .then((response) => {
                     this.getAllPosts();
@@ -120,9 +120,13 @@ class Home extends Component {
             this.setState({
                 selectedPosts: this.state.imagePosts
             })
-        } else {
+        } else if (data.value === "video"){
             this.setState({
                 selectedPosts: this.state.videoPosts
+            })
+        } else {
+            this.setState({
+                selectedPosts : this.state.feedPosts
             })
         }
 
@@ -132,11 +136,6 @@ class Home extends Component {
         const modalName = data.value;
 
         this.setState({ modalIsOpen: true, currentModal: modalName });
-    }
-
-    afterOpenModal = () => {
-        // references are now sync'd and can be accessed.
-        // this.subtitle.style.color = '#f00';
     }
 
     closeModal = () => {
@@ -220,13 +219,9 @@ class Home extends Component {
                 </div>
                 <Modal
                     isOpen={this.state.modalIsOpen}
-                    onAfterOpen={this.afterOpenModal}
                     onRequestClose={this.closeModal}
                     className="Modal"
-                    contentLabel="Example Modal"
-                 
-                >
-
+                    contentLabel="Example Modal">
                     {this.renderModalComponent()}
 
                 </Modal>
