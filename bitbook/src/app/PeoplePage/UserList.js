@@ -5,8 +5,8 @@ const UserList = (props) => {
 
     return (
         <div className="ui grid">
-      <div class="four wide column"></div>
-      <div className="eight wide column">
+      <div class="six wide column"></div>
+      <div className="four wide column">
        <ul>
        {props.myUsers.map((user) => {
           return ( <div class="column" key ={user.id}>
@@ -15,7 +15,7 @@ const UserList = (props) => {
        })}
          </ul>
     </div>
-    <div class="four wide column"></div>
+    <div class="six wide column"></div>
       </div> 
     )
 }

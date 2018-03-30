@@ -6,7 +6,7 @@ body {
 
 .list-users {
   list-style: none;
-  
+  display: inline-block;
 }
 
 .user-picture {
@@ -139,7 +139,18 @@ background-color:rgb(105, 153, 199);
 .content .delete-btn {
   float: right;
   margin-top: -3%;
+}
 
+.search-users {
+  width: 100%;
+  border-radius: 0px;
+  background-color: blue;
+  color: white;
+  margin-top: 10px;
+}
+
+.ui.category.search {
+  margin-top: 32px;
 }
 
 
