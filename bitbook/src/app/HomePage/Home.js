@@ -15,6 +15,7 @@ class Home extends Component {
             imagePosts: [],
             modalIsOpen: false,
             input: "",
+            feedPosts: [],
             selectedPosts: [],
             message: ''
         }
@@ -28,7 +29,7 @@ class Home extends Component {
                     textPosts: myPosts.textPosts,
                     videoPosts: myPosts.videoPosts,
                     imagePosts: myPosts.imagePosts,
-                    selectedPosts: myPosts.textPosts.concat(myPosts.videoPosts, myPosts.imagePosts)
+                    feedPosts: myPosts.textPosts.concat(myPosts.videoPosts, myPosts.imagePosts)
                 })
             });
     }
@@ -127,9 +128,13 @@ class Home extends Component {
             this.setState({
                 selectedPosts: this.state.imagePosts
             })
-        } else {
+        } else if (data.value === "video"){
             this.setState({
                 selectedPosts: this.state.videoPosts
+            })
+        } else {
+            this.setState({
+                selectedPosts : this.state.feedPosts
             })
         }
 
@@ -225,9 +230,11 @@ class Home extends Component {
                     isOpen={this.state.modalIsOpen}
                     onRequestClose={this.closeModal}
                     className="Modal"
+
                     contentLabel="Example Modal"
 
                 >
+
 
                     {this.renderModalComponent()}
 

@@ -131,10 +131,16 @@ background-color:rgb(105, 153, 199);
   margin-top: 20px;
 }
 
+
+#photoForm img{
+  width:50px;
+}
+
 .content .delete-btn {
   float: right;
   margin-top: -3%;
 
 }
+
 
 

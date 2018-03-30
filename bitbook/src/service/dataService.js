@@ -175,6 +175,33 @@ class DataServices {
         .then((comments) => comments.map((comment) => new Comment(comment)))
     }
 
+
+uploadPhoto = (data) =>{
+    console.log(data)
+    return fetch( 'http://bitbookapi.azurewebsites.net/api/upload/', {
+        headers:{
+            'Key': 'bitbook' ,
+            'SessionId' : '7A5D8FF8-B04D-4C8C-9812-8B44EB7E4C94',
+        },
+        body: data,
+        method: 'POST'
+    })
+    .then((response) => response.json());
+}
+
+changeProfile = (data) => {
+    return fetch('http://bitbookapi.azurewebsites.net/api/profiles' , {
+        headers:{
+            'Content-Type': 'application/json',
+            'Key': 'bitbook' ,
+            'SessionId' : '7A5D8FF8-B04D-4C8C-9812-8B44EB7E4C94'
+        },
+        body: JSON.stringify(data),
+        method: 'PUT'
+    })
+    .then((response) => response)
+}
+
     deletePosts = (id) => {
         return fetch(`http://bitbookapi.azurewebsites.net/api/Posts/${id}` , {
             headers:{
