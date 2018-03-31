@@ -33,7 +33,8 @@ class Home extends Component {
                     textPosts: textPosts,
                     videoPosts: videoPosts,
                     imagePosts: imagePosts,
-                    feedPosts: feedPosts
+                    feedPosts: feedPosts,
+                    selectedPosts: feedPosts
                 })
             });
     }
