@@ -25,11 +25,15 @@ class Home extends Component {
     getAllPosts = () => {
         dataServices.getPosts()
             .then(myPosts => {
+                var { textPosts } = myPosts;
+                var { videoPosts } = myPosts;
+                var { imagePosts } = myPosts;
+                var feedPosts = [...textPosts, ...videoPosts, ...imagePosts]
                 this.setState({
-                    textPosts: myPosts.textPosts,
-                    videoPosts: myPosts.videoPosts,
-                    imagePosts: myPosts.imagePosts,
-                    feedPosts: myPosts.textPosts.concat(myPosts.videoPosts, myPosts.imagePosts)
+                    textPosts: textPosts,
+                    videoPosts: videoPosts,
+                    imagePosts: imagePosts,
+                    feedPosts: feedPosts
                 })
             });
     }
@@ -38,21 +42,18 @@ class Home extends Component {
         this.getAllPosts()
     }
 
-
-
     handleInputChange = (event) => {
         this.setState({
             input: event.target.value
         })
     }
 
-
     checkTextInput = () => {
-        if (this.state.input.length > 1000 ) {
+        if (this.state.input.length > 1000) {
             this.setState({
                 message: 'Text is too long'
             });
-        } else if (this.state.input == ''){
+        } else if (this.state.input == '') {
             this.setState({
                 message: 'Text is missing'
             });
@@ -107,19 +108,9 @@ class Home extends Component {
         }
     }
 
-    sortPosts = () => {
-        let allPosts = this.state.textPosts.concat(this.state.videoPosts, this.state.imagePosts)
-        let sortPosts = allPosts.sort(function (a, b) {
-            let keyA = new Date(a.dateCreated);
-            let keyB = new Date(b.dateCreated);
-            if (keyA > keyB) return -1;
-            if (keyA < keyB) return 1;
-            return 0;
-        })
-        return sortPosts;
-    }
 
     handleChange = (event, data) => {
+        console.log(data.value)
         if (data.value === "text") {
             this.setState({
                 selectedPosts: this.state.textPosts
@@ -128,13 +119,13 @@ class Home extends Component {
             this.setState({
                 selectedPosts: this.state.imagePosts
             })
-        } else if (data.value === "video"){
+        } else if (data.value === "video") {
             this.setState({
                 selectedPosts: this.state.videoPosts
             })
         } else {
             this.setState({
-                selectedPosts : this.state.feedPosts
+                selectedPosts: this.state.feedPosts
             })
         }
 
@@ -217,33 +208,22 @@ class Home extends Component {
                     <div className='eight wide column'><PostList posts={this.state.selectedPosts} />
                     </div>
                     <div className='four wide column'>
-
-
                         <NewPostButton className='dropdown' openPost={this.openModal} />
-
                         <MenuAllPosts handleChange={this.handleChange} />
-
-
                     </div>
                 </div>
                 <Modal
                     isOpen={this.state.modalIsOpen}
                     onRequestClose={this.closeModal}
                     className="Modal"
-
                     contentLabel="Example Modal"
-
                 >
 
-
                     {this.renderModalComponent()}
-
                 </Modal>
             </div>
         )
     }
-
-
 }
 
 export default Home;
