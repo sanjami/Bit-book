@@ -21,6 +21,8 @@ class Home extends Component {
         }
     }
 
+    /* Getting all text posts, image posts, video posts from API response */ 
+
 
     getAllPosts = () => {
         dataServices.getPosts()
@@ -43,11 +45,15 @@ class Home extends Component {
         this.getAllPosts()
     }
 
+     /* Changing state of input for all new posts */ 
+
     handleInputChange = (event) => {
         this.setState({
             input: event.target.value
         })
     }
+
+   /* Validation of text posts */ 
 
     checkTextInput = () => {
         if (this.state.input.length > 1000) {
@@ -69,6 +75,8 @@ class Home extends Component {
         }
     }
 
+    /* Validation of image posts */ 
+
     checkImageInput = () => {
         const myUrlLength = this.state.input.length;
         const cutUrl = this.state.input.slice(myUrlLength - 3);
@@ -87,6 +95,8 @@ class Home extends Component {
                 )
         }
     }
+
+    /* Validation of video posts */ 
 
     createLink = (link) => {
         return link.replace("watch?v=", "embed/");
@@ -108,6 +118,8 @@ class Home extends Component {
             })
         }
     }
+
+    /* Selected type of posts */ 
 
 
     handleChange = (event, data) => {
@@ -131,6 +143,9 @@ class Home extends Component {
         }
 
     }
+
+    /* React Modals for new posts */ 
+
 
     openModal = (event, data) => {
         const modalName = data.value;

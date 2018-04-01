@@ -13,20 +13,36 @@ class ImagePostDetails extends Component {
             comments : []
         }
     }
+
+    getAllComments = (id) => {
+        dataServices.getComment(id)
+            .then((myComments) => {
+                this.setState({
+                    comments: myComments
+                })
+             
+            })
+    }
+
+    /* Getting image post details from API response and comments about that post */
+
     componentDidMount() {
         dataServices.getImagePost(this.props.match.params.id)
             .then((myPost) => {
                 this.setState({
                     post: myPost
                 })            
-            dataServices.getComment(myPost.id)
-            .then((myComments) => {
-                this.setState({
-                    comments : myComments
-                })
-            })
+                this.getAllComments(myPost.id)
         })
     }
+
+    /* Loading comments */
+
+    onInvalidate = () => {
+        this.getAllComments(this.state.post.id)
+    }
+
+    /* Deleting image posts */
 
     deleteMyImagePost = (event) => {
         event.preventDefault() 
@@ -46,7 +62,7 @@ class ImagePostDetails extends Component {
                     <div className="ui one cards">
                         <PostItem onePost={this.state.post} deleteMyPost={this.deleteMyImagePost} />
                         </div>
-                        <AddCommentForm postId={this.state.post.id}/>
+                        <AddCommentForm postId={this.state.post.id} invalidate={this.onInvalidate}/>
                         <CommentList comments={this.state.comments}/>
                     </div>
                     <div className='four wide column'>

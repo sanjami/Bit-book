@@ -20,7 +20,9 @@ class Profile extends Component {
         }
     }
 
-getUserData = () => {
+   /* Getting one user from API response */
+
+    getUserData = () => {
     dataServices.getUser(this.props.match.params.id)
     .then((myUser) => {
         this.setState({
@@ -36,6 +38,8 @@ getUserData = () => {
        this.getUserData()
     }
 
+    /* React Modal for updating profile */
+
     openModal = (event) => {
         this.setState({ modalIsOpen: true });
       
@@ -46,6 +50,8 @@ getUserData = () => {
             modalIsOpen: false,
         });
     }
+
+    /* Uploading photo */
 
     fileChangeHandler = (event) => {
         const file = event.target.files[0];
@@ -64,12 +70,16 @@ getUserData = () => {
             })
     }
 
+    /* Changing name */
+
     handleInputNameChange = (event) => {
         this.setState({
             newName : event.target.value
         })
         this.inputValidation();
     }
+
+    /* Changing about */
 
     handleInputAboutChange = (event) => {
         this.setState({
@@ -78,12 +88,16 @@ getUserData = () => {
         this.inputValidation();
     }
 
+    /* Changing URL */
+
     handleInputUrlChange = (event) => {
         this.setState({
             newPhotoUrl: event.target.value
         })
         this.inputValidation();
     }
+
+     /* Updating user data */
 
     checkData = () => {
         let data = {
@@ -101,6 +115,8 @@ getUserData = () => {
             this.getUserData()
         })
     }
+
+    /* Validation input data */
 
     inputValidation = () => {
         if(this.state.newName && this.state.newAbout && this.state.newPhotoUrl){
