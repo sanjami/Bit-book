@@ -8,7 +8,8 @@ class People extends Component {
         super(props) 
         this.state = {
             users : [],
-            filterUsers : []
+            filterUsers : [],
+            searchUsers: false
         };
     }
 
@@ -24,18 +25,28 @@ class People extends Component {
 
     handleChange = (event) => {
 		let inputValue = event.target.value;
-		let newUsers = this.state.users.filter((user) => user.name)
+		let newUsers = this.state.users.filter((user) => `${user.name}`.toLowerCase().includes(inputValue.toLowerCase()))
 		this.setState({
-			filterUsers: newUsers
+            filterUsers: newUsers,
+            searchUsers: true
+        
 		})
 	}
     
+    checkSearchUsers = () => {
+        if(this.state.searchUsers == true) {
+            return this.state.filterUsers
+        } else {
+            return this.state.users
+        }
+    }
+
     render() {
         console.log(this.state.filterUsers)
         return (
             <div>
             <Search  handleChange={this.handleChange} inputValue={this.state.inputValue}/>
-            <UserList myUsers={this.state.users}/>
+            <UserList myUsers={this.checkSearchUsers()}/>
             </div>
 
         )
