@@ -1,14 +1,10 @@
-class TextPost {
-    constructor(post){
-        this.text = post.text;
-        this.id = post.id;
-        this.dateCreated = post.dateCreated;
-        this.userId = post.userId;
-        this.userDisplayName = post.userDisplayName;
-        this.type = post.type;
-        this.commentsNum = post.commentsNum;
-    }
+import Post from './Post'
 
+class TextPost extends Post {
+    constructor(post){
+        super(post)
+        this.text = post.text;
+    }
 }
 
 export default TextPost;
