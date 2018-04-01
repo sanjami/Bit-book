@@ -13,6 +13,7 @@ class TextPostDetails extends Component {
             comments: []
         }
     }
+   
 
     getAllComments = (id) => {
         dataServices.getComment(id)
@@ -24,6 +25,8 @@ class TextPostDetails extends Component {
             })
     }
 
+     /* Getting text post details from API response and comments about that post */
+
     componentDidMount() {
         dataServices.getTextPost(this.props.match.params.id)
             .then((myPost) => {
@@ -34,9 +37,13 @@ class TextPostDetails extends Component {
             })
     }
 
+     /* Loading comments */
+
     onInvalidate = () => {
         this.getAllComments(this.state.post.id)
     }
+
+    /* Deleting text posts */
 
 
     deleteMyTextPost = (event) => {

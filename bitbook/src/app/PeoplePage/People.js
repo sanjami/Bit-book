@@ -13,6 +13,8 @@ class People extends Component {
         };
     }
 
+    /* Getting all users from API response */ 
+
     componentDidMount() {
         dataServices.getUsers()
         .then(allUsers => {
@@ -23,6 +25,8 @@ class People extends Component {
         });
     }
 
+    /* Search bar for users */ 
+
     handleChange = (event) => {
 		let inputValue = event.target.value;
 		let newUsers = this.state.users.filter((user) => `${user.name}`.toLowerCase().includes(inputValue.toLowerCase()))
@@ -31,7 +35,8 @@ class People extends Component {
             searchUsers: true
         
 		})
-	}
+    }
+    
     
     checkSearchUsers = () => {
         if(this.state.searchUsers == true) {

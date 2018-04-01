@@ -2,6 +2,8 @@ import React from 'react';
 import PostItem from '../sharedComponents/PostItem'
 
 const PostList = (props) => {
+
+    /* Sorting posts from the most recent to the oldest */ 
   let sortPosts = () => {
     
     let sortedPosts = props.posts.sort(function (a, b) {
