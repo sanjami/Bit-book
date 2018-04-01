@@ -1,14 +1,10 @@
-class VideoPost {
-    constructor(post){
-        this.videoUrl = post.videoUrl;
-        this.id = post.id;
-        this.dateCreated = post.dateCreated;
-        this.userId = post.userId;
-        this.userDisplayName = post.userDisplayName;
-        this.type = post.type;
-        this.commentsNum = post.commentsNum;
-    }
+import Post from './Post'
 
+class VideoPost extends Post {
+    constructor(post){
+        super(post);
+        this.videoUrl = post.videoUrl;
+    }
 }
 
 export default VideoPost;
