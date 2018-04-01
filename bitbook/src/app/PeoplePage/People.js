@@ -32,13 +32,14 @@ class People extends Component {
     
     render() {
         console.log(this.state.filterUsers)
-        return (
-            <div>
-            <Search  handleChange={this.handleChange} inputValue={this.state.inputValue}/>
-            <UserList myUsers={this.state.users}/>
+        return (<div className="ui grid">
+            <div class="five wide column" />
+            <div className="six wide column">
+            <Search handleChange={this.handleChange} inputValue={this.state.inputValue} />
+            <UserList myUsers={this.state.users} />
             </div>
-
-        )
+             <div class="five wide column"></div>
+          </div>)
     }
 
 
