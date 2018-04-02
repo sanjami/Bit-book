@@ -194,6 +194,7 @@ class Home extends Component {
         });
     }
 
+
     renderTextModal = () => {
         return (
             <Container >
@@ -264,15 +265,16 @@ class Home extends Component {
     render() {
         return <div className="ui three column grid">
             <div className="row">
-                <div className="four wide column">
-                    <NewPostButton className="dropdown" openPost={this.openModal} />
-                </div>
-                <div className="eight wide column">
-                    <PostList posts={this.state.selectedPosts} />
-                </div>
-                <div className="four wide column">
-                    <MenuAllPosts handleChange={this.handleChange} />
-                </div>
+              <div className="four wide column">
+              <NewPostButton className="dropdown" openPost={this.openModal} />
+              </div>
+              <div className="eight wide column">
+                <PostList posts={this.state.selectedPosts}/>
+              </div>
+              <div className="four wide column">
+                <MenuAllPosts handleChange={this.handleChange} />
+              </div>
+
             </div>
             <Modal isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal} className="Modal" contentLabel="Example Modal">
                 {this.renderModalComponent()}

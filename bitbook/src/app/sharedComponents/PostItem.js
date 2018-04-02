@@ -13,11 +13,11 @@ const PostItem = (props) => {
             </div>
             <div className="content">
                 <span className="right floated">
-                    <i className="comment icon"></i>
+                    <i className="comment icon "></i>
                     {props.onePost.commentsNum}
                 </span>
-            <div className='content'><Button primary className='delete-btn' onClick={props.deleteMyPost}>Delete</Button></div>
-                <i className="file alternate icon"></i>
+            <div className='content'><Button className='delete-btn' onClick={props.deleteMyPost}>Delete</Button></div>
+                <i className="file alternate icon icon-type"></i>
                 {props.onePost.type}
             </div>
         </Container>
@@ -32,8 +32,8 @@ const PostItem = (props) => {
                         <i className="comment icon"></i>
                         {props.onePost.commentsNum}
                     </span>
-                <div className='content'><Button primary className='delete-btn' onClick={props.deleteMyPost}>Delete</Button></div>
-                    <i className="image icon"></i>
+                <div className='content'><Button  className='delete-btn' onClick={props.deleteMyPost}>Delete</Button></div>
+                    <i className="image icon icon-type"></i>
                     {props.onePost.type}
                 </div>
         </Container>
@@ -46,8 +46,8 @@ const PostItem = (props) => {
                         <i className="comment icon"></i>
                         {props.onePost.commentsNum}
                     </span>
-                    <div className='content'><Button primary className='delete-btn' onClick={props.deleteMyPost}>Delete</Button></div>
-                    <i className="video icon"></i>
+                    <div className='content'><Button  className='delete-btn' onClick={props.deleteMyPost}>Delete</Button></div>
+                    <i className="video icon icon-type"></i>
                     {props.onePost.type}
                 </div>
         </Container>
