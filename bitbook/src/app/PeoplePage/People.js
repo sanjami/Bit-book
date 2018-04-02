@@ -52,7 +52,7 @@ class People extends Component {
             <div class="five wide column" />
             <div className="six wide column">
             <Search handleChange={this.handleChange} inputValue={this.state.inputValue} />
-            <UserList myUsers={this.state.users} />
+            <UserList myUsers={this.checkSearchUsers()} />
             </div>
              <div class="five wide column"></div>
           </div>)

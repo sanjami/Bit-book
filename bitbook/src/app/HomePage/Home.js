@@ -4,6 +4,7 @@ import MenuAllPosts from './MenuAllPosts';
 import NewPostButton from './NewPostButton';
 import { dataServices } from '../../service/dataService';
 import Modal from 'react-modal';
+import { Label, Form, Image, Input, Button, Message, Container } from 'semantic-ui-react';
 
 
 class Home extends Component {
@@ -14,14 +15,16 @@ class Home extends Component {
             videoPosts: [],
             imagePosts: [],
             modalIsOpen: false,
+            currentModal: '',
             input: "",
             feedPosts: [],
             selectedPosts: [],
-            message: ''
+            message: '',
+            buttonDisabled: true
         }
     }
 
-    /* Getting all text posts, image posts, video posts from API response */ 
+    /* Getting all text posts, image posts, video posts from API response */
 
 
     getAllPosts = () => {
@@ -36,7 +39,8 @@ class Home extends Component {
                     videoPosts: videoPosts,
                     imagePosts: imagePosts,
                     feedPosts: feedPosts,
-                    selectedPosts: feedPosts
+                    selectedPosts: feedPosts,
+                    buttonDisabled: true
                 })
             });
     }
@@ -45,27 +49,40 @@ class Home extends Component {
         this.getAllPosts()
     }
 
-     /* Changing state of input for all new posts */ 
+    /* Changing state of input for all new posts */
 
-    handleInputChange = (event) => {
-        this.setState({
-            input: event.target.value
-        })
-    }
-
-   /* Validation of text posts */ 
-
-    checkTextInput = () => {
-        if (this.state.input.length > 1000) {
+    textValidation = () => {
+        if (this.state.input.length > 100) {
             this.setState({
-                message: 'Text is too long'
+                message: 'Text is too long',
+                buttonDisabled: true
             });
         } else if (this.state.input == '') {
             this.setState({
-                message: 'Text is missing'
+                message: 'Text is missing',
+                buttonDisabled: true
             });
+        } else {
+            this.setState({
+                message: '',
+                buttonDisabled: false
+            })
+            return true;
         }
-        else {
+    }
+
+    handleInputTextChange = (event) => {
+        this.setState({
+            input: event.target.value
+        })
+        this.textValidation()
+
+    }
+
+    /* Validation of text posts */
+
+    checkTextInput = () => {
+        if (this.textValidation()) {
             dataServices.addNewTextPost(this.state.input)
                 .then((response) => {
                     this.getAllPosts();
@@ -75,9 +92,7 @@ class Home extends Component {
         }
     }
 
-    /* Validation of image posts */ 
-
-    checkImageInput = () => {
+    imageValidation = () => {
         const myUrlLength = this.state.input.length;
         const cutUrl = this.state.input.slice(myUrlLength - 3);
         const cutUrlJpeg = this.state.input.slice(myUrlLength - 4);
@@ -87,6 +102,24 @@ class Home extends Component {
                 message: 'Post is not image'
             });
         } else {
+            this.setState({
+                message: ''
+            })
+            return true;
+        }
+    }
+
+    handleInputImageChange = (event) => {
+        this.setState({
+            input: event.target.value
+        })
+        this.imageValidation()
+    }
+
+    /* Validation of image posts */
+
+    checkImageInput = () => {
+        if (this.imageValidation()) {
             dataServices.addNewImagePost(this.state.input)
                 .then((response) => {
                     this.getAllPosts();
@@ -96,7 +129,7 @@ class Home extends Component {
         }
     }
 
-    /* Validation of video posts */ 
+    /* Validation of video posts */
 
     createLink = (link) => {
         return link.replace("watch?v=", "embed/");
@@ -119,7 +152,7 @@ class Home extends Component {
         }
     }
 
-    /* Selected type of posts */ 
+    /* Selected type of posts */
 
 
     handleChange = (event, data) => {
@@ -144,7 +177,7 @@ class Home extends Component {
 
     }
 
-    /* React Modals for new posts */ 
+    /* React Modals for new posts */
 
 
     openModal = (event, data) => {
@@ -164,48 +197,60 @@ class Home extends Component {
 
     renderTextModal = () => {
         return (
-            <div className='input-field'>
-                <h2 ref={subtitle => this.subtitle = subtitle} className='headline'>New text post</h2>
-                <button onClick={this.closeModal} className='close-btn'>CLOSE</button>
-                <div className='input-text'>Text content</div>
-                <form>
-                    <input type='text' value={this.state.input} onChange={this.handleInputChange} className='input-item' />
-                    <button onClick={this.checkTextInput} className='post-btn'>POST</button>
-                </form>
-                <div>{this.state.message}</div>
-            </div>
+            <Container >
+                <Form>
+                    <h2 ref={subtitle => this.subtitle = subtitle} className='headline'>New text post</h2>
+                    <Form.Group>
+                        <Form.Field control={Input} label='Text content' width={14} type='text' value={this.state.input} onChange={this.handleInputTextChange} />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Field control={Button} onClick={this.checkTextInput} disabled={this.state.buttonDisabled} className='post-btn'>POST</Form.Field>
+                        <Form.Field control={Button} onClick={this.closeModal} className='close-btn'>CLOSE</Form.Field>
+                    </Form.Group>
+                    <div id='warning' className={this.state.message ? 'visible' : 'invisible'}>{this.state.message}</div>
+                </Form>
+            </Container>
         )
 
     }
 
     renderImageModal = () => {
         return (
-            <div className='input-field'>
-                <h2 ref={subtitle => this.subtitle = subtitle} className='headline'>New image post</h2>
-                <button onClick={this.closeModal} className='close-btn'>CLOSE</button>
-                <div className='input-text'>Image source</div>
-                <form>
-                    <input type='url' onChange={this.handleInputChange} className='input-item' />
-                    <button onClick={this.checkImageInput} className='post-btn'>POST</button>
-                </form>
-                <div>{this.state.message}</div>
-            </div>
+            <Container >
+                <Form>
+                    <h2 ref={subtitle => this.subtitle = subtitle} className='headline'>New image post</h2>
+                    <Form.Group>
+                        <Form.Field control={Input} label='Image source' width={14} type='url' onChange={this.handleInputImageChange} />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Field control={Button} onClick={this.checkImageInput} disabled={this.state.buttonDisabled} className='post-btn'>POST</Form.Field>
+                        <Form.Field control={Button} onClick={this.closeModal} className='close-btn'>CLOSE</Form.Field>
+                    </Form.Group>
+                    <div id='warning' className={this.state.message ? 'visible' : 'invisible'}>{this.state.message}</div>
+                </Form>
+            </Container>
+
+
         )
     }
 
 
     renderVideoModal = () => {
         return (
-            <div className='input-field'>
-                <h2 ref={subtitle => this.subtitle = subtitle} className='headline'>New video post</h2>
-                <button onClick={this.closeModal} className='close-btn'>CLOSE</button>
-                <div className='input-text'>YouTube video link</div>
-                <form>
-                    <input type='url' onChange={this.handleInputChange} className='input-item' />
-                    <button onClick={this.checkVideoInput} className='post-btn'>POST</button>
-                </form>
-                <div>{this.state.message}</div>
-            </div>
+
+            <Container >
+                <Form>
+                    <h2 ref={subtitle => this.subtitle = subtitle} className='headline'>New video post</h2>
+                    <Form.Group>
+                        <Form.Field control={Input} label='YouTube video link' width={14} type='url' onChange={this.handleInputChange} />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Field control={Button} onClick={this.checkVideoInput} className='post-btn'>POST</Form.Field>
+                        <Form.Field control={Button} onClick={this.closeModal} className='close-btn'>CLOSE</Form.Field>
+                    </Form.Group>
+                    <div id='warning' className={this.state.message ? 'visible' : 'invisible'}>{this.state.message}</div>
+                </Form>
+            </Container>
         )
     }
 
@@ -229,11 +274,12 @@ class Home extends Component {
               <div className="four wide column">
                 <MenuAllPosts handleChange={this.handleChange} />
               </div>
+
             </div>
             <Modal isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal} className="Modal" contentLabel="Example Modal">
-              {this.renderModalComponent()}
+                {this.renderModalComponent()}
             </Modal>
-          </div>;
+        </div>;
     }
 }
 

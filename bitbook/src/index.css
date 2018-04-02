@@ -68,6 +68,7 @@ margin-left:50px;
   bottom: 358px;
   background-color: white;
   border: 1px solid black;
+  padding:30px;
 }
 
 .input-field {
@@ -75,17 +76,6 @@ margin-left:50px;
   margin-top: 50px;
 }
 
-.close-btn {
-  position: absolute;
-  top: 230px;
-  left: 151px;
-}
-
-.post-btn {
-  position: absolute;
-  top: 230px;
-  left: 80px;
-}
 
 .input-text {
   padding-top: 30px;
@@ -94,7 +84,7 @@ margin-left:50px;
 }
 
 .headline {
-  color: red;
+  color: #5d64bb;
 }
 
 .input-item {
@@ -156,6 +146,19 @@ background-color:rgb(105, 153, 199);
 .header-link{
   color:white;
 }
+#warning{
+  background-color: rgb(240, 120, 120);
+  border: 1px solid rgb(221, 61, 61);
+  border-radius: 5%;
+  color:rgb(59, 54, 54);
+  padding: 10px;
+  margin-left:7px;
+}
+
+.invisible{
+  display: none;
+}
+
 
 .icon-type {
   color: #6a71cb;
@@ -170,7 +173,9 @@ i.icon {
   color: #6a71cb;
 }
 
-
+.ui form>.ui button{
+background: #8188f8;
+}
 
 
 
