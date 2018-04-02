@@ -9,14 +9,14 @@ const CommentList = (props) => {
                 <Card.Content>
                     <span>There are no comments</span>
                 </Card.Content>
-            </Card>
+                 </Card>
        
     } else {
         return (
             // <div className="ui one cards">
             <React.Fragment>
                 {props.comments.map((comment) => <CommentListItem oneComment={comment} key={comment.id} />)}
-                </React.Fragment>
+            </React.Fragment>
            
         )
     }
