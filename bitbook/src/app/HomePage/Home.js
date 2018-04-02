@@ -200,6 +200,7 @@ class Home extends Component {
         });
     }
 
+
     renderTextModal = () => {
         return (
             <Container >
@@ -282,6 +283,7 @@ class Home extends Component {
                 <img src={this.state.selectedPhoto} />
                 </div>
             <div className="row">
+
                 <div className="four wide column">
                     <NewPostButton className="dropdown" openPost={this.openModal} />
                 </div>
@@ -291,6 +293,7 @@ class Home extends Component {
                 <div className="four wide column">
                     <MenuAllPosts handleChange={this.handleChange} />
                 </div>
+
             </div>
             <Modal isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal} className="Modal" contentLabel="Example Modal">
                 {this.renderModalComponent()}

@@ -159,6 +159,20 @@ background-color:rgb(105, 153, 199);
   display: none;
 }
 
+
+.icon-type {
+  color: #6a71cb;
+}
+
+.ui.button.delete-btn {
+  background-color: #6a71cb;
+  color: white;
+}
+
+i.icon {
+  color: #6a71cb;
+}
+
 .ui form>.ui button{
 background: #8188f8;
 }
@@ -178,3 +192,5 @@ background: #8188f8;
 #segmentPhoto{
   width:100%;
 }
+
+

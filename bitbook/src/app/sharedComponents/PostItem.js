@@ -17,13 +17,16 @@ const PostItem = (props) => {
 
             <div className="content">
                 <span className="right floated">
-                    <i className="comment icon"></i>
+                    <i className="comment icon "></i>
                     {props.onePost.commentsNum}
                 </span>
+
                 <div className='content'>
                     <button onClick={props.deleteMyPost} className={window.location.hash === `#/feeds/text${props.onePost.id}` ? 'visible' : 'invisible'}>Delete</button>
                 </div>
                 <i className="file alternate icon"></i>
+            <div className='content'><Button className='delete-btn' onClick={props.deleteMyPost}>Delete</Button></div>
+                <i className="file alternate icon icon-type"></i>
                 {props.onePost.type}
             </div>
         </Container>
@@ -46,6 +49,8 @@ const PostItem = (props) => {
                         <Button primary className='delete-btn' onClick={() => { props.handleBigPhoto(props.onePost.imageUrl) }}>Big</Button>
                     </div>
                     <i className="image icon"></i>
+                <div className='content'><Button  className='delete-btn' onClick={props.deleteMyPost}>Delete</Button></div>
+                    <i className="image icon icon-type"></i>
                     {props.onePost.type}
                 </div>
 
@@ -71,6 +76,11 @@ const PostItem = (props) => {
                 <button onClick={props.deleteMyPost} className={window.location.hash === `#/feeds/video${props.onePost.id}` ? 'visible' : 'invisible'}>Delete</button>
                </div>
             </div>
+
+                    <div className='content'><Button  className='delete-btn' onClick={props.deleteMyPost}>Delete</Button></div>
+                    <i className="video icon icon-type"></i>
+                    {props.onePost.type}
+                </div>
         </Container>
 
     }
