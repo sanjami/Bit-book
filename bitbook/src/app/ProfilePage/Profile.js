@@ -3,7 +3,7 @@ import { dataServices } from '../../service/dataService';
 import UserCard from './UserCard';
 import PostAndCommentsCount from './PostAndCommentsCount';
 import Modal from 'react-modal';
-import Label from 'semantic-ui-react/dist/commonjs/elements/Label/Label';
+import {Label, Form ,Image, Input, Button, Message, Container} from 'semantic-ui-react';
 
 class Profile extends Component {
     constructor(props) {
@@ -76,7 +76,7 @@ class Profile extends Component {
         this.setState({
             newName : event.target.value
         })
-        this.inputValidation();
+        this.inputValidation(event);
     }
 
     /* Changing about */
@@ -85,7 +85,7 @@ class Profile extends Component {
         this.setState({
             newAbout : event.target.value
         })
-        this.inputValidation();
+        this.inputValidation(event);
     }
 
     /* Changing URL */
@@ -94,7 +94,7 @@ class Profile extends Component {
         this.setState({
             newPhotoUrl: event.target.value
         })
-        this.inputValidation();
+        this.inputValidation(event);
     }
 
      /* Updating user data */
@@ -118,10 +118,11 @@ class Profile extends Component {
 
     /* Validation input data */
 
-    inputValidation = () => {
-        if(this.state.newName && this.state.newAbout && this.state.newPhotoUrl){
+    inputValidation = (event) => {
+        if(event.target.value){
            this.setState({
-               buttonDisabled: false
+               buttonDisabled: false,
+               errorMessage: ''
            })
         } 
         if(this.state.newName.length > 40){
@@ -130,39 +131,67 @@ class Profile extends Component {
                 buttonDisabled: true               
             });
         }
-        if(this.state.newName.length > 400){
+        if(this.state.newAbout.length > 400){
             this.setState({
                 errorMessage: 'About is too long',
                 buttonDisabled: true               
             });
         }
+        const myUrlLength = this.state.newPhotoUrl.length;
+        const cutUrl = this.state.newPhotoUrl.slice(myUrlLength - 3);
+        const cutUrlJpeg = this.state.newPhotoUrl.slice(myUrlLength - 4);
+
+        if (cutUrl != 'jpg' && cutUrl != 'png' && cutUrl != 'gif' && cutUrlJpeg != 'jpeg') {
+            this.setState({
+                errorMessage: 'Post is not image',
+                buttonDisabled:true
+            });
+        } else {
+            this.setState({
+                errorMessage: ''
+            })
+        }
+
+        if(!event.target.value) {
+            this.setState({
+                buttonDisabled: true
+            })
+        }
     }
 
     renderModal = () => {
         return (
-            <div className='input-field'>
+            <Container >
+           
                 <h2 ref={subtitle => this.subtitle = subtitle} className='headline'>Edit profile</h2>
-                <button onClick={this.closeModal} className='close-btn'>CLOSE</button>
-                <form id="photoForm">
-                    <input type="file" accept=".jpg, .jpeg, .png" onChange={this.fileChangeHandler} />
-                    <img src={this.state.newPhotoUrl} />
-                    <button onClick={this.addPhoto}>SUBMIT</button>
-                </form>
-                <form id="profileInfoForm">
-                <Label>Name
-                    <input type='text' value={this.state.newName} onChange={this.handleInputNameChange} className='input-item' />
-                    </Label>
-                    <Label>Photo Url
-                    <input type="url" value={this.state.newPhotoUrl} onChange={this.handleInputUrlChange} className='input-item' />
-                    </Label>
-                    <Label>About
-                    <input type='text' value={this.state.newAbout} onChange={this.handleInputAboutChange} className='input-item' />
-                    </Label>
-                    <div>{this.state.errorMessage}</div>
-                    <button onClick={this.checkData} disabled={this.state.buttonDisabled}  className='post-btn'>UPDATE</button>
-                </form>
-                <div>{this.state.message}</div>
-            </div>
+                
+                <Form>
+                <Form.Group id="photoForm">
+                    <Form.Field control={Input} type="file" accept=".jpg, .jpeg, .png" onChange={this.fileChangeHandler} width={8}/>
+                    <Form.Field control={Image} src={this.state.newPhotoUrl} width={1}/>
+                    <Form.Field control={Button} onClick={this.addPhoto} width={3}>SUBMIT</Form.Field>
+                    </Form.Group>
+                </Form>
+                <Form>
+                <Form.Group>
+                    <Form.Field control={Input} label = "Name" width={5} type='text' value={this.state.newName} onChange={this.handleInputNameChange} className='input-item' />
+                    
+                    <Form.Field control={Input} label="Photo Url" width={5} type="url" value={this.state.newPhotoUrl} onChange={this.handleInputUrlChange} className='input-item' />
+                
+                    <Form.Field control={Input} label='About' type='text' width={5}value={this.state.newAbout} onChange={this.handleInputAboutChange} className='input-item' /> 
+                  </Form.Group>
+                  <br/>
+                  <Form.Group>
+                    <div id='warning' className={this.state.errorMessage ? 'visible':'invisible'}>{this.state.errorMessage}</div>
+                    </Form.Group>
+                  <Form.Group>
+                  < Form.Field control={Button} width={2} onClick={this.checkData} disabled={this.state.buttonDisabled}>UPDATE</Form.Field>
+                    < Form.Field control={Button} width={2} onClick={this.closeModal}>CLOSE</Form.Field>
+                    </Form.Group>
+                
+
+            </Form>
+            </Container>
         )
     }
 
