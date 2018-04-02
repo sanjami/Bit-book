@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Card, Feed, Image, Container, Grid } from 'semantic-ui-react';
+import { Image, List,  } from 'semantic-ui-react';
 import { dataServices } from '../../service/dataService';
+
 
 
 class CommentListItem extends Component {
@@ -24,27 +25,20 @@ class CommentListItem extends Component {
 
 
   render() {
-    return(
-      <Grid columns={1} divided>
-       <Grid.Row>
-      <Grid.Column>
-    <Feed>
-      <Feed.Event>
-        <Feed.Label as='Image' image={this.state.userAvatar} size='mini' />
-        <Feed.Summary>
-        <span>{this.props.oneComment.authorName}</span>
-          </Feed.Summary>
-        <Feed.Content>
-         
-          <Feed.Extra text>
-          {this.props.oneComment.body}
-      </Feed.Extra>
-        </Feed.Content>
-      </Feed.Event>
-    </Feed>
-    </Grid.Column>
-    </Grid.Row>
-    </Grid>
+    return (
+      <List divided verticalAlign="middle">
+        <List.Item className="list-item">
+          <Image src={this.state.userAvatar} alt={this.props.oneComment.authorName} avatar />
+          <List.Content>
+            <List.Header>{this.props.oneComment.authorName}</List.Header>
+            <List.Description>
+              {this.props.oneComment.body}
+            </List.Description>
+          </List.Content>
+        </List.Item>
+      </List>
+
+
     )
   }
 }
