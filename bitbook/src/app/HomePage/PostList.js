@@ -18,7 +18,7 @@ return sortedPosts;
 let finalPosts = sortPosts();
     return (
       <div className="ui one cards">
-         {finalPosts.map((post)=><PostItem onePost={post} key ={post.id}/>)}
+         {finalPosts.map((post)=><PostItem onePost={post} key ={post.id} handleBigPhoto={props.handleBigPhoto}/>)}
        </div>
         
     )
