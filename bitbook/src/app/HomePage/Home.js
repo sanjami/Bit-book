@@ -4,7 +4,7 @@ import MenuAllPosts from './MenuAllPosts';
 import NewPostButton from './NewPostButton';
 import { dataServices } from '../../service/dataService';
 import Modal from 'react-modal';
-import { Label, Form, Image, Input, Button, Message, Container } from 'semantic-ui-react';
+import { Label, Form, Image, Input, Button, Message, Container, Icon } from 'semantic-ui-react';
 
 
 class Home extends Component {
@@ -20,7 +20,8 @@ class Home extends Component {
             feedPosts: [],
             selectedPosts: [],
             message: '',
-            buttonDisabled: true
+            buttonDisabled: true,
+            selectedPhoto: '',
         }
     }
 
@@ -177,6 +178,11 @@ class Home extends Component {
 
     }
 
+    handleBigPhoto = (photo) => {
+        this.setState({
+            selectedPhoto:photo
+        })
+    }
     /* React Modals for new posts */
 
 
@@ -261,19 +267,32 @@ class Home extends Component {
             case "video": return this.renderVideoModal()
         }
     }
+    closeBigPhoto = ()=> {
+        this.setState({
+            selectedPhoto: ''
+        })
+    }
 
     render() {
+        console.log(this.state.selectedPhoto)
         return <div className="ui three column grid">
+        <div id='theaterMode' className={this.state.selectedPhoto ? 'visible' : 'invisible'}>
+        <Button onClick={this.closeBigPhoto}>
+            <Icon name='close'/>
+        </Button>
+                <img src={this.state.selectedPhoto} />
+                </div>
             <div className="row">
-              <div className="four wide column">
-              <NewPostButton className="dropdown" openPost={this.openModal} />
-              </div>
-              <div className="eight wide column">
-                <PostList posts={this.state.selectedPosts}/>
-              </div>
-              <div className="four wide column">
-                <MenuAllPosts handleChange={this.handleChange} />
-              </div>
+
+                <div className="four wide column">
+                    <NewPostButton className="dropdown" openPost={this.openModal} />
+                </div>
+                <div className="eight wide column">
+                    <PostList posts={this.state.selectedPosts} handleBigPhoto={this.handleBigPhoto}/>
+                </div>
+                <div className="four wide column">
+                    <MenuAllPosts handleChange={this.handleChange} />
+                </div>
 
             </div>
             <Modal isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal} className="Modal" contentLabel="Example Modal">

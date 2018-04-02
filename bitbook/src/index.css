@@ -177,5 +177,20 @@ i.icon {
 background: #8188f8;
 }
 
+#theaterMode{
+  position: fixed;
+  top: 7%;
+  left:7%;
+  width:85%;
+  z-index:1;
+}
+
+#theaterMode img {
+  width:100%;
+}
+
+#segmentPhoto{
+  width:100%;
+}
 
 
