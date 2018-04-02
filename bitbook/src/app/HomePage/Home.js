@@ -161,6 +161,7 @@ class Home extends Component {
         });
     }
 
+
     renderTextModal = () => {
         return (
             <div className='input-field'>
@@ -223,7 +224,7 @@ class Home extends Component {
               <NewPostButton className="dropdown" openPost={this.openModal} />
               </div>
               <div className="eight wide column">
-                <PostList posts={this.state.selectedPosts} />
+                <PostList posts={this.state.selectedPosts}/>
               </div>
               <div className="four wide column">
                 <MenuAllPosts handleChange={this.handleChange} />
