@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Button, Checkbox, Form, Container } from 'semantic-ui-react'
 import { dataServices } from '../../service/dataService';
+import ErrorComponent from '../sharedComponents/ErrorComponent';
 
 class AddCommentForm extends React.Component {
     constructor(props) {
@@ -21,17 +22,25 @@ class AddCommentForm extends React.Component {
         postId : this.props.postId
         })
         .then((result) => {
+          if(result.error){
+            this.setState({
+              error: result.error
+          })
+          } else {
           this.setState({
             value: ''
           })
           this.props.invalidate()
+        }
         })
+      
     }
 
 
     render() {
       return (
         <Container id='addCommentForm'>
+        <ErrorComponent errorMessage={this.state.error} />
         <Form onSubmit={this.handleSubmit}>
         <Form.Field>
             <input type="text" value={this.state.value} onChange={this.handleChange} />

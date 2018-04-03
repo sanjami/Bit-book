@@ -3,14 +3,15 @@ import { dataServices } from '../../service/dataService';
 import PostList from '../HomePage/PostList';
 import PostItem from '../sharedComponents/PostItem';
 import AddCommentForm from './AddCommentForm';
-import CommentList from './CommentList'
+import CommentList from './CommentList';
+import ErrorComponent from '../sharedComponents/ErrorComponent';
 
 class ImagePostDetails extends Component {
     constructor(props) {
         super(props)
         this.state = {
             post: {},
-            comments : []
+            comments: []
         }
     }
 
@@ -20,7 +21,7 @@ class ImagePostDetails extends Component {
                 this.setState({
                     comments: myComments
                 })
-             
+
             })
     }
 
@@ -31,9 +32,9 @@ class ImagePostDetails extends Component {
             .then((myPost) => {
                 this.setState({
                     post: myPost
-                })            
+                })
                 this.getAllComments(myPost.id)
-        })
+            })
     }
 
     /* Loading comments */
@@ -45,11 +46,17 @@ class ImagePostDetails extends Component {
     /* Deleting image posts */
 
     deleteMyImagePost = (event) => {
-        event.preventDefault() 
+        event.preventDefault()
         dataServices.deletePosts(this.state.post.id)
-        .then((textPost) => {
-            window.location.assign("http://localhost:3000/#/");
-        })
+            .then((textPost) => {
+                if (textPost.error) {
+                    this.setState({
+                        error: textPost.error
+                    })
+                } else {
+                    window.location.assign("http://localhost:3000/#/");
+                }
+            })
     }
 
     render() {
@@ -58,11 +65,12 @@ class ImagePostDetails extends Component {
                 <div className="row">
                     <div className='four wide column'></div>
                     <div className='eight wide column'>
-                    <div className="ui one cards">
-                        <PostItem onePost={this.state.post} deleteMyPost={this.deleteMyImagePost} />
+                        <div className="ui one cards">
+                            <PostItem onePost={this.state.post} deleteMyPost={this.deleteMyImagePost} />
+                             <ErrorComponent errorMessage={this.state.error} />
                         </div>
-                        <AddCommentForm postId={this.state.post.id} invalidate={this.onInvalidate}/>
-                        <CommentList comments={this.state.comments}/>
+                        <AddCommentForm postId={this.state.post.id} invalidate={this.onInvalidate} />
+                        <CommentList comments={this.state.comments} />
                     </div>
                     <div className='four wide column'>
                     </div>
