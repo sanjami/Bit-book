@@ -4,7 +4,7 @@ import MenuAllPosts from './MenuAllPosts';
 import NewPostButton from './NewPostButton';
 import { dataServices } from '../../service/dataService';
 import Modal from 'react-modal';
-import { Label, Form, Image, Input, Button, Message, Container, Icon } from 'semantic-ui-react';
+import { Label, Form, Image, Input, Button, Message, Container, Icon, Pagination } from 'semantic-ui-react';
 
 
 class Home extends Component {
@@ -22,14 +22,16 @@ class Home extends Component {
             message: '',
             buttonDisabled: true,
             selectedPhoto: '',
+            activePage: 1,
+            numberOfAllPosts:0
         }
     }
 
     /* Getting all text posts, image posts, video posts from API response */
 
 
-    getAllPosts = () => {
-        dataServices.getPosts()
+    getAllPosts = (activePage, m) => {
+        dataServices.getPosts(activePage,m)
             .then(myPosts => {
                 var { textPosts } = myPosts;
                 var { videoPosts } = myPosts;
@@ -47,7 +49,13 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        this.getAllPosts()
+        dataServices.getPostsCount()
+                .then(countPosts=>{
+                    this.setState({
+                        numberOfAllPosts: countPosts
+                    })
+                });
+        this.getAllPosts(this.state.activePage,Math.ceil(this.state.numberOfAllPosts/10));
     }
 
     /* Changing state of input for all new posts */
@@ -86,7 +94,10 @@ class Home extends Component {
         if (this.textValidation()) {
             dataServices.addNewTextPost(this.state.input)
                 .then((response) => {
-                    this.getAllPosts();
+                    this.setState({
+                        activePage: 0
+                    })
+                    this.getAllPosts(0, Math.ceil(this.state.numberOfAllPosts/10));
                     this.closeModal();
                 }
                 )
@@ -123,7 +134,7 @@ class Home extends Component {
         if (this.imageValidation()) {
             dataServices.addNewImagePost(this.state.input)
                 .then((response) => {
-                    this.getAllPosts();
+                    this.getAllPosts(0, Math.ceil(this.state.numberOfAllPosts/10));
                     this.closeModal();
                 }
                 )
@@ -142,7 +153,7 @@ class Home extends Component {
             let data = this.createLink(this.state.input);
             dataServices.addNewVideoPost(data)
                 .then((response) => {
-                    this.getAllPosts();
+                    this.getAllPosts(0, Math.ceil(this.state.numberOfAllPosts/10));
                     this.closeModal();
                 })
 
@@ -157,7 +168,6 @@ class Home extends Component {
 
 
     handleChange = (event, data) => {
-        console.log(data.value)
         if (data.value === "text") {
             this.setState({
                 selectedPosts: this.state.textPosts
@@ -180,7 +190,7 @@ class Home extends Component {
 
     handleBigPhoto = (photo) => {
         this.setState({
-            selectedPhoto:photo
+            selectedPhoto: photo
         })
     }
     /* React Modals for new posts */
@@ -267,28 +277,46 @@ class Home extends Component {
             case "video": return this.renderVideoModal()
         }
     }
-    closeBigPhoto = ()=> {
+    closeBigPhoto = () => {
         this.setState({
             selectedPhoto: ''
         })
     }
 
+    handlePageChange = (e, { activePage }) => {
+        this.setState({
+            activePage: activePage
+        })
+       
+        this.getAllPosts(activePage, Math.ceil(this.state.numberOfAllPosts/10))
+    }
+
     render() {
-        console.log(this.state.selectedPhoto)
+     console.log(this.state.numberOfAllPosts);
         return <div className="ui three column grid">
-        <div id='theaterMode' className={this.state.selectedPhoto ? 'visible' : 'invisible'}>
-        <Button onClick={this.closeBigPhoto}>
-            <Icon name='close'/>
-        </Button>
+            <div id='theaterMode' className={this.state.selectedPhoto ? 'visible' : 'invisible'}>
+                <Button onClick={this.closeBigPhoto}>
+                    <Icon name='close' />
+                </Button>
                 <img src={this.state.selectedPhoto} />
-                </div>
+            </div>
             <div className="row">
 
                 <div className="four wide column">
                     <NewPostButton className="dropdown" openPost={this.openModal} />
                 </div>
                 <div className="eight wide column">
-                    <PostList posts={this.state.selectedPosts} handleBigPhoto={this.handleBigPhoto}/>
+                    <PostList posts={this.state.selectedPosts} handleBigPhoto={this.handleBigPhoto} />
+                    <Pagination
+                        defaultActivePage={1}
+                        activePage={this.state.activePage}
+                        firstItem={null}
+                        lastItem={null}
+                        pointing
+                        secondary
+                        totalPages={Math.ceil(this.state.numberOfAllPosts/10)}
+                        onPageChange={this.handlePageChange}
+                    />
                 </div>
                 <div className="four wide column">
                     <MenuAllPosts handleChange={this.handleChange} />
@@ -299,6 +327,8 @@ class Home extends Component {
                 {this.renderModalComponent()}
             </Modal>
         </div>;
+
+
     }
 }
 
