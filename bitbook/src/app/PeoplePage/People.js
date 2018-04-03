@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import UserList from './UserList';
 import Search from './Search';
+import ErrorComponent from '../sharedComponents/ErrorComponent';
 import {dataServices} from '../../service/dataService';
 
 class People extends Component {
@@ -9,7 +10,8 @@ class People extends Component {
         this.state = {
             users : [],
             filterUsers : [],
-            searchUsers: false
+            searchUsers: false,
+            error: ''
         };
     }
 
@@ -18,10 +20,15 @@ class People extends Component {
     componentDidMount() {
         dataServices.getUsers()
         .then(allUsers => {
-            
+            if(allUsers.error) {
+                this.setState({
+                    error: allUsers.error
+                })
+            } else {           
             this.setState({
                 users : allUsers
             });
+        }
         });
     }
 
@@ -32,8 +39,7 @@ class People extends Component {
 		let newUsers = this.state.users.filter((user) => `${user.name}`.toLowerCase().includes(inputValue.toLowerCase()))
 		this.setState({
             filterUsers: newUsers,
-            searchUsers: true
-        
+            searchUsers: true       
 		})
     }
     
@@ -47,15 +53,15 @@ class People extends Component {
     }
 
     render() {
-        console.log(this.state.filterUsers)
-        return (<div className="ui grid">
+        return <div className="ui grid">
             <div class="five wide column" />
             <div className="six wide column">
             <Search handleChange={this.handleChange} inputValue={this.state.inputValue} />
             <UserList myUsers={this.checkSearchUsers()} />
+            <ErrorComponent errorMessage={this.state.error} />
             </div>
              <div class="five wide column"></div>
-          </div>)
+          </div>
     }
 
 

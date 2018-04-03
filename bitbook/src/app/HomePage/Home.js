@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PostList from './PostList';
 import MenuAllPosts from './MenuAllPosts';
 import NewPostButton from './NewPostButton';
+import ErrorComponent from '../sharedComponents/ErrorComponent';
 import { dataServices } from '../../service/dataService';
 import Modal from 'react-modal';
 import { Label, Form, Image, Input, Button, Message, Container, Icon } from 'semantic-ui-react';
@@ -22,6 +23,7 @@ class Home extends Component {
             message: '',
             buttonDisabled: true,
             selectedPhoto: '',
+            error: ''
         }
     }
 
@@ -31,18 +33,24 @@ class Home extends Component {
     getAllPosts = () => {
         dataServices.getPosts()
             .then(myPosts => {
-                var { textPosts } = myPosts;
-                var { videoPosts } = myPosts;
-                var { imagePosts } = myPosts;
-                var feedPosts = [...textPosts, ...videoPosts, ...imagePosts]
-                this.setState({
-                    textPosts: textPosts,
-                    videoPosts: videoPosts,
-                    imagePosts: imagePosts,
-                    feedPosts: feedPosts,
-                    selectedPosts: feedPosts,
-                    buttonDisabled: true
-                })
+                if (myPosts.error) {
+                    this.setState({
+                        error: myPosts.error
+                    })
+                } else {
+                    let { textPosts } = myPosts;
+                    let { videoPosts } = myPosts;
+                    let { imagePosts } = myPosts;
+                    let feedPosts = [...textPosts, ...videoPosts, ...imagePosts]
+                    this.setState({
+                        textPosts: textPosts,
+                        videoPosts: videoPosts,
+                        imagePosts: imagePosts,
+                        feedPosts: feedPosts,
+                        selectedPosts: feedPosts,
+                        buttonDisabled: true
+                    })
+                }
             });
     }
 
@@ -86,8 +94,14 @@ class Home extends Component {
         if (this.textValidation()) {
             dataServices.addNewTextPost(this.state.input)
                 .then((response) => {
-                    this.getAllPosts();
-                    this.closeModal();
+                    if (response.error) {
+                        this.setState({
+                            error: response.error
+                        })
+                    } else {
+                        this.getAllPosts();
+                        this.closeModal();
+                    }
                 }
                 )
         }
@@ -123,8 +137,14 @@ class Home extends Component {
         if (this.imageValidation()) {
             dataServices.addNewImagePost(this.state.input)
                 .then((response) => {
-                    this.getAllPosts();
-                    this.closeModal();
+                    if (response.error) {
+                        this.setState({
+                            error: response.error
+                        })
+                    } else {
+                        this.getAllPosts();
+                        this.closeModal();
+                    }
                 }
                 )
         }
@@ -142,8 +162,14 @@ class Home extends Component {
             let data = this.createLink(this.state.input);
             dataServices.addNewVideoPost(data)
                 .then((response) => {
-                    this.getAllPosts();
-                    this.closeModal();
+                    if (response.error) {
+                        this.setState({
+                            error: response.error
+                        })
+                    } else {
+                        this.getAllPosts();
+                        this.closeModal();
+                    }
                 })
 
         } else {
@@ -157,7 +183,7 @@ class Home extends Component {
 
 
     handleChange = (event, data) => {
-        console.log(data.value)
+
         if (data.value === "text") {
             this.setState({
                 selectedPosts: this.state.textPosts
@@ -180,7 +206,7 @@ class Home extends Component {
 
     handleBigPhoto = (photo) => {
         this.setState({
-            selectedPhoto:photo
+            selectedPhoto: photo
         })
     }
     /* React Modals for new posts */
@@ -204,6 +230,7 @@ class Home extends Component {
     renderTextModal = () => {
         return (
             <Container >
+                 <ErrorComponent errorMessage={this.state.error} />
                 <Form>
                     <h2 ref={subtitle => this.subtitle = subtitle} className='headline'>New text post</h2>
                     <Form.Group>
@@ -223,6 +250,7 @@ class Home extends Component {
     renderImageModal = () => {
         return (
             <Container >
+                 <ErrorComponent errorMessage={this.state.error} />
                 <Form>
                     <h2 ref={subtitle => this.subtitle = subtitle} className='headline'>New image post</h2>
                     <Form.Group>
@@ -245,6 +273,7 @@ class Home extends Component {
         return (
 
             <Container >
+                 <ErrorComponent errorMessage={this.state.error} />
                 <Form>
                     <h2 ref={subtitle => this.subtitle = subtitle} className='headline'>New video post</h2>
                     <Form.Group>
@@ -267,28 +296,28 @@ class Home extends Component {
             case "video": return this.renderVideoModal()
         }
     }
-    closeBigPhoto = ()=> {
+    closeBigPhoto = () => {
         this.setState({
             selectedPhoto: ''
         })
     }
 
     render() {
-        console.log(this.state.selectedPhoto)
         return <div className="ui three column grid">
-        <div id='theaterMode' className={this.state.selectedPhoto ? 'visible' : 'invisible'}>
-        <Button onClick={this.closeBigPhoto}>
-            <Icon name='close'/>
-        </Button>
+            <div id='theaterMode' className={this.state.selectedPhoto ? 'visible' : 'invisible'}>
+                <Button onClick={this.closeBigPhoto}>
+                    <Icon name='close' />
+                </Button>
                 <img src={this.state.selectedPhoto} />
-                </div>
+            </div>
             <div className="row">
 
                 <div className="four wide column">
                     <NewPostButton className="dropdown" openPost={this.openModal} />
                 </div>
                 <div className="eight wide column">
-                    <PostList posts={this.state.selectedPosts} handleBigPhoto={this.handleBigPhoto}/>
+                    <ErrorComponent errorMessage={this.state.error} />
+                    <PostList posts={this.state.selectedPosts} handleBigPhoto={this.handleBigPhoto} />
                 </div>
                 <div className="four wide column">
                     <MenuAllPosts handleChange={this.handleChange} />

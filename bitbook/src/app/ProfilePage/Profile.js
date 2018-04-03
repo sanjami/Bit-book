@@ -4,6 +4,7 @@ import UserCard from './UserCard';
 import PostAndCommentsCount from './PostAndCommentsCount';
 import Modal from 'react-modal';
 import {Label, Form ,Image, Input, Button, Message, Container} from 'semantic-ui-react';
+import ErrorComponent from '../sharedComponents/ErrorComponent';
 
 class Profile extends Component {
     constructor(props) {
@@ -25,12 +26,18 @@ class Profile extends Component {
     getUserData = () => {
     dataServices.getUser(this.props.match.params.id)
     .then((myUser) => {
+        if(myUser.error){
+            this.setState({
+                error: myUser.error
+            })
+        } else {
         this.setState({
             user: myUser,
             newPhotoUrl: myUser.avatarUrl,
             newAbout: myUser.about,
             newName: myUser.name,
         })
+    }
     })
 }
 
@@ -64,9 +71,15 @@ class Profile extends Component {
 
         dataServices.uploadPhoto(formData)
             .then((result) => {
+                if(result.error){
+                    this.setState({
+                        error: result.error
+                    })
+                } else {
                 this.setState({
                     newPhotoUrl: result,
                 })
+            }
             })
     }
 
@@ -109,10 +122,16 @@ class Profile extends Component {
         }
         dataServices.changeProfile(data)
         .then((result) => {
+            if(result.error){
+                this.setState({
+                    error: result.error
+                })
+            } else {
             this.setState({
                 modalIsOpen: false
             })
             this.getUserData()
+        }
         })
     }
 
@@ -164,7 +183,7 @@ class Profile extends Component {
             <Container >
            
                 <h2 ref={subtitle => this.subtitle = subtitle} className='headline'>Edit profile</h2>
-                
+                <ErrorComponent errorMessage={this.state.error} />
                 <Form>
                 <Form.Group id="photoForm">
                     <Form.Field control={Input} type="file" accept=".jpg, .jpeg, .png" onChange={this.fileChangeHandler} width={8}/>
@@ -201,6 +220,7 @@ class Profile extends Component {
                 <div className="row">
                     <div className='four wide column'></div>
                     <div className='eight wide column'>
+                <ErrorComponent errorMessage={this.state.error} />
                         <UserCard user={this.state.user} handleClick={this.openModal} />
                         <PostAndCommentsCount user={this.state.user} />
                     </div>
