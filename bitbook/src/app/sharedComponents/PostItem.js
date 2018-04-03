@@ -24,8 +24,6 @@ const PostItem = (props) => {
                 <div className='content'>
                     <button onClick={props.deleteMyPost} className={window.location.hash === `#/feeds/text${props.onePost.id}` ? 'visible' : 'invisible'}>Delete</button>
                 </div>
-                <i className="file alternate icon"></i>
-            <div className='content'><Button className='delete-btn' onClick={props.deleteMyPost}>Delete</Button></div>
                 <i className="file alternate icon icon-type"></i>
                 {props.onePost.type}
             </div>
@@ -45,11 +43,9 @@ const PostItem = (props) => {
                         {props.onePost.commentsNum}
                     </span>
                     <div className='content'>
-                        <button onClick={props.deleteMyPost} className={window.location.hash === `#/feeds/image${props.onePost.id}` ? 'visible' : 'invisible'}>Delete</button>
-                        <Button primary className='delete-btn' onClick={() => { props.handleBigPhoto(props.onePost.imageUrl) }}>Big</Button>
+                        <button onClick={props.deleteMyPost}  className={window.location.hash === `#/feeds/image${props.onePost.id}` ? 'visible' : 'invisible'}>Delete</button>
+                        <button  className={window.location.hash != `#/feeds/image${props.onePost.id}` ? 'visible' : 'invisible'} onClick={() => { props.handleBigPhoto(props.onePost.imageUrl) }}>Image preview</button>
                     </div>
-                    <i className="image icon"></i>
-                <div className='content'><Button  className='delete-btn' onClick={props.deleteMyPost}>Delete</Button></div>
                     <i className="image icon icon-type"></i>
                     {props.onePost.type}
                 </div>
@@ -70,17 +66,12 @@ const PostItem = (props) => {
                 <div className='content'>
                 
                <a href={`#feeds/${props.onePost.type}${props.onePost.id}`}>
-                <i className="video icon"></i>
-                {props.onePost.type}
+               <i className="video icon icon-type"></i>
+               {props.onePost.type}
                 </a>
                 <button onClick={props.deleteMyPost} className={window.location.hash === `#/feeds/video${props.onePost.id}` ? 'visible' : 'invisible'}>Delete</button>
                </div>
-            </div>
-
-                    <div className='content'><Button  className='delete-btn' onClick={props.deleteMyPost}>Delete</Button></div>
-                    <i className="video icon icon-type"></i>
-                    {props.onePost.type}
-                </div>
+            </div>  
         </Container>
 
     }
