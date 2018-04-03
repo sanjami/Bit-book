@@ -15,8 +15,11 @@ class DataServices {
             },
             method: 'GET'
         })
-
             .then((response) => {
+                if (response.ok === false) {
+                    var error = new Error(response.statusText);
+                    throw error
+                }
                 return response.json()
             })
             .then((postList) => {
@@ -30,6 +33,9 @@ class DataServices {
                 }
 
                 return objectPosts
+            })
+            .catch((error) => {
+                return { error: error.message }
             })
     }
     getPostsCount = () =>{
@@ -53,8 +59,18 @@ class DataServices {
             },
             method: 'GET'
         })
-            .then((response) => response.json())
+            .then((response) => {
+                if (response.ok === false) {
+                    var error = new Error(response.statusText);
+                    throw error
+                }
+
+                return response.json()
+            })
             .then((postItem) => new TextPost(postItem))
+            .catch((error) => {
+                return { error: error.message }
+            })
     }
 
     getImagePost = (id) => {
@@ -66,8 +82,18 @@ class DataServices {
             },
             method: 'GET'
         })
-            .then((response) => response.json())
+            .then((response) => {
+                if (response.ok === false) {
+                    var error = new Error(response.statusText);
+                    throw error
+                }
+
+                return response.json()
+            })
             .then((postItem) => new ImagePost(postItem))
+            .catch((error) => {
+                return { error: error.message }
+            })
     }
 
     getVideoPost = (id) => {
@@ -79,11 +105,21 @@ class DataServices {
             },
             method: 'GET'
         })
-            .then((response) => response.json())
+            .then((response) => {
+                if (response.ok === false) {
+                    var error = new Error(response.statusText);
+                    throw error
+                }
+
+                return response.json()
+            })
             .then((postItem) => new VideoPost(postItem))
+            .catch((error) => {
+                return { error: error.message }
+            })
     }
 
-    getUsers =() => {
+    getUsers = () => {
         return fetch('http://bitbookapi.azurewebsites.net/api/users', {
             headers: {
                 'Content-Type': 'application/json',
@@ -92,21 +128,40 @@ class DataServices {
             },
             method: 'GET'
         })
-            .then((response) => response.json())
+            .then((response) => {
+                if (response.ok === false) {
+                    var error = new Error(response.statusText);
+                    throw error
+                }
+                return response.json()
+            })
             .then((userList) => userList.map((user) => new User(user)))
+            .catch((error) => {
+                return { error: error.message }
+            })
     }
 
-    getUser =(id) => {
+    getUser = (id) => {
         return fetch(`http://bitbookapi.azurewebsites.net/api/users/${id}`, {
-            headers:{
+            headers: {
                 'Content-Type': 'application/json',
-                'Key': 'bitbook' ,
-                'SessionId' : '7A5D8FF8-B04D-4C8C-9812-8B44EB7E4C94'
+                'Key': 'bitbook',
+                'SessionId': '7A5D8FF8-B04D-4C8C-9812-8B44EB7E4C94'
             },
             method: 'GET'
         })
-        .then((response)=> response.json())
-        .then((user)=> new User(user));
+            .then((response) => {
+                if (response.ok === false) {
+                    var error = new Error(response.statusText);
+                    throw error
+                }
+
+                return response.json()
+            })
+            .then((user) => new User(user))
+            .catch((error) => {
+                return { error: error.message }
+            })
     }
 
     addNewTextPost = (newTextPost) => {
@@ -123,7 +178,16 @@ class DataServices {
                 text: newTextPost
             })
         })
-            .then((response) => response.json());
+            .then((response) => {
+                if (response.ok === false) {
+                    var error = new Error(response.statusText);
+                    throw error
+                }
+                return response.json()
+            })
+            .catch((error) => {
+                return { error: error.message }
+            })
     }
 
     addNewImagePost = (newImagePost) => {
@@ -139,7 +203,16 @@ class DataServices {
                 imageUrl: newImagePost
             })
         })
-            .then((response) => response.json());
+            .then((response) => {
+                if (response.ok === false) {
+                    var error = new Error(response.statusText);
+                    throw error
+                }
+                return response.json()
+            })
+            .catch((error) => {
+                return { error: error.message }
+            })
     }
 
 
@@ -156,73 +229,127 @@ class DataServices {
                 videoUrl: newVideoPost
             })
         })
-            .then((response) => response.json());
+            .then((response) => {
+                if (response.ok === false) {
+                    var error = new Error(response.statusText);
+                    throw error
+                }
+                return response.json()
+            })
+            .catch((error) => {
+                return { error: error.message }
+            })
     }
 
 
     addComment = (data) => {
         return fetch('http://bitbookapi.azurewebsites.net/api/comments', {
-            headers:{
+            headers: {
                 'Content-Type': 'application/json',
-                'Key': 'bitbook' ,
-                'SessionId' : '7A5D8FF8-B04D-4C8C-9812-8B44EB7E4C94'
+                'Key': 'bitbook',
+                'SessionId': '7A5D8FF8-B04D-4C8C-9812-8B44EB7E4C94'
             },
             body: JSON.stringify(data),
             method: 'POST'
         })
-        .then((response) => response.json());
+            .then((response) => {
+                if (response.ok === false) {
+                    var error = new Error(response.statusText);
+                    throw error
+                }
+                return response.json()
+            })
+            .catch((error) => {
+                return { error: error.message }
+            })
     }
 
     getComment = (id) => {
-        return fetch(`http://bitbookapi.azurewebsites.net/api/comments?postId=${id}` , {
-            headers:{
+        return fetch(`http://bitbookapi.azurewebsites.net/api/comments?postId=${id}`, {
+            headers: {
                 'Content-Type': 'application/json',
-                'Key': 'bitbook' ,
-                'SessionId' : '7A5D8FF8-B04D-4C8C-9812-8B44EB7E4C94'
+                'Key': 'bitbook',
+                'SessionId': '7A5D8FF8-B04D-4C8C-9812-8B44EB7E4C94'
             },
-            method: 'GET'       
+            method: 'GET'
         })
-        .then((response) => (response.json()))
-        .then((comments) => comments.map((comment) => new Comment(comment)))
+            .then((response) => {
+                if (response.ok === false) {
+                    var error = new Error(response.statusText);
+                    throw error
+                }
+                return response.json()
+            })
+            .then((comments) => comments.map((comment) => new Comment(comment)))
+            .catch((error) => {
+                return { error: error.message }
+            })
     }
 
 
-uploadPhoto = (data) =>{
-    console.log(data)
-    return fetch( 'http://bitbookapi.azurewebsites.net/api/upload/', {
-        headers:{
-            'Key': 'bitbook' ,
-            'SessionId' : '7A5D8FF8-B04D-4C8C-9812-8B44EB7E4C94',
-        },
-        body: data,
-        method: 'POST'
-    })
-    .then((response) => response.json());
-}
+    uploadPhoto = (data) => {
+        console.log(data)
+        return fetch('http://bitbookapi.azurewebsites.net/api/upload/', {
+            headers: {
+                'Key': 'bitbook',
+                'SessionId': '7A5D8FF8-B04D-4C8C-9812-8B44EB7E4C94',
+            },
+            body: data,
+            method: 'POST'
+        })
+            .then((response) => {
+                if (response.ok === false) {
+                    var error = new Error(response.statusText);
+                    throw error
+                }
+                return response.json()
+            })
+            .catch((error) => {
+                return { error: error.message }
+            })
+    }
 
-changeProfile = (data) => {
-    return fetch('http://bitbookapi.azurewebsites.net/api/profiles' , {
-        headers:{
-            'Content-Type': 'application/json',
-            'Key': 'bitbook' ,
-            'SessionId' : '7A5D8FF8-B04D-4C8C-9812-8B44EB7E4C94'
-        },
-        body: JSON.stringify(data),
-        method: 'PUT'
-    })
-    .then((response) => response)
-}
+    changeProfile = (data) => {
+        return fetch('http://bitbookapi.azurewebsites.net/api/profiles', {
+            headers: {
+                'Content-Type': 'application/json',
+                'Key': 'bitbook',
+                'SessionId': '7A5D8FF8-B04D-4C8C-9812-8B44EB7E4C94'
+            },
+            body: JSON.stringify(data),
+            method: 'PUT'
+        })
+            .then((response) => {
+                if (response.ok === false) {
+                    var error = new Error(response.statusText);
+                    throw error
+                }
+                return response
+            })
+            .catch((error) => {
+                return { error: error.message }
+            })
+    }
 
     deletePosts = (id) => {
-        return fetch(`http://bitbookapi.azurewebsites.net/api/Posts/${id}` , {
-            headers:{
+        return fetch(`http://bitbookapi.azurewebsites.net/api/Posts/${id}`, {
+            headers: {
                 'Content-Type': 'application/json',
-                'Key': 'bitbook' ,
-                'SessionId' : '7A5D8FF8-B04D-4C8C-9812-8B44EB7E4C94'
+                'Key': 'bitbook',
+                'SessionId': '7A5D8FF8-B04D-4C8C-9812-8B44EB7E4C94'
             },
-            method: 'DELETE'       
+            method: 'DELETE'
         })
-        .then((response) => (response.json()))
+            .then((response) => {
+                if (response.ok === false) {
+                    var error = new Error(response.statusText);
+                    throw error
+                }
+                return response.json()
+            })
+            .catch((error) => {
+                return { error: error.message }
+            })
     }
 
 }
