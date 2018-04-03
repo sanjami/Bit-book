@@ -5,7 +5,7 @@ import NewPostButton from './NewPostButton';
 import ErrorComponent from '../sharedComponents/ErrorComponent';
 import { dataServices } from '../../service/dataService';
 import Modal from 'react-modal';
-import { Label, Form, Image, Input, Button, Message, Container, Icon } from 'semantic-ui-react';
+import { Label, Form, Image, Input, Button, Message, Container, Icon, Pagination } from 'semantic-ui-react';
 
 
 class Home extends Component {
@@ -23,6 +23,8 @@ class Home extends Component {
             message: '',
             buttonDisabled: true,
             selectedPhoto: '',
+            activePage: 1,
+            numberOfAllPosts:0,
             error: ''
         }
     }
@@ -30,8 +32,8 @@ class Home extends Component {
     /* Getting all text posts, image posts, video posts from API response */
 
 
-    getAllPosts = () => {
-        dataServices.getPosts()
+    getAllPosts = (activePage, m) => {
+        dataServices.getPosts(activePage,m)
             .then(myPosts => {
                 if (myPosts.error) {
                     this.setState({
@@ -55,7 +57,13 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        this.getAllPosts()
+        dataServices.getPostsCount()
+                .then(countPosts=>{
+                    this.setState({
+                        numberOfAllPosts: countPosts
+                    })
+                });
+        this.getAllPosts(this.state.activePage,Math.ceil(this.state.numberOfAllPosts/10));
     }
 
     /* Changing state of input for all new posts */
@@ -94,14 +102,18 @@ class Home extends Component {
         if (this.textValidation()) {
             dataServices.addNewTextPost(this.state.input)
                 .then((response) => {
-                    if (response.error) {
+             if (response.error) {
                         this.setState({
                             error: response.error
                         })
-                    } else {
-                        this.getAllPosts();
+                } else {
+                        this.getAllPosts(0, Math.ceil(this.state.numberOfAllPosts/10));
                         this.closeModal();
+                        this.setState({
+                           activePage: 0
+                    })
                     }
+                   
                 }
                 )
         }
@@ -137,14 +149,16 @@ class Home extends Component {
         if (this.imageValidation()) {
             dataServices.addNewImagePost(this.state.input)
                 .then((response) => {
-                    if (response.error) {
+                if (response.error) {
                         this.setState({
                             error: response.error
                         })
-                    } else {
-                        this.getAllPosts();
+                     } else {
+                        this.getAllPosts(0, Math.ceil(this.state.numberOfAllPosts/10));
                         this.closeModal();
                     }
+                  
+                 
                 }
                 )
         }
@@ -162,12 +176,12 @@ class Home extends Component {
             let data = this.createLink(this.state.input);
             dataServices.addNewVideoPost(data)
                 .then((response) => {
-                    if (response.error) {
+                       if (response.error) {
                         this.setState({
                             error: response.error
                         })
                     } else {
-                        this.getAllPosts();
+                        this.getAllPosts(0, Math.ceil(this.state.numberOfAllPosts/10));
                         this.closeModal();
                     }
                 })
@@ -302,7 +316,16 @@ class Home extends Component {
         })
     }
 
+    handlePageChange = (e, { activePage }) => {
+        this.setState({
+            activePage: activePage
+        })
+       
+        this.getAllPosts(activePage, Math.ceil(this.state.numberOfAllPosts/10))
+    }
+
     render() {
+
         return <div className="ui three column grid">
             <div id='theaterMode' className={this.state.selectedPhoto ? 'visible' : 'invisible'}>
                 <Button onClick={this.closeBigPhoto}>
@@ -316,8 +339,22 @@ class Home extends Component {
                     <NewPostButton className="dropdown" openPost={this.openModal} />
                 </div>
                 <div className="eight wide column">
+
+                    <PostList posts={this.state.selectedPosts} handleBigPhoto={this.handleBigPhoto} />
+                    <Pagination
+                        defaultActivePage={1}
+                        activePage={this.state.activePage}
+                        firstItem={null}
+                        lastItem={null}
+                        pointing
+                        secondary
+                        totalPages={Math.ceil(this.state.numberOfAllPosts/10)}
+                        onPageChange={this.handlePageChange}
+                    />
+
                     <ErrorComponent errorMessage={this.state.error} />
                     <PostList posts={this.state.selectedPosts} handleBigPhoto={this.handleBigPhoto} />
+
                 </div>
                 <div className="four wide column">
                     <MenuAllPosts handleChange={this.handleChange} />
@@ -328,6 +365,8 @@ class Home extends Component {
                 {this.renderModalComponent()}
             </Modal>
         </div>;
+
+
     }
 }
 

@@ -6,8 +6,8 @@ import Comment from '../entities/Comment'
 
 class DataServices {
 
-    getPosts = () => {
-        return fetch('http://bitbookapi.azurewebsites.net/api/Posts', {
+    getPosts = (n, m) => {
+        return fetch(`http://bitbookapi.azurewebsites.net/api/Posts?$top=10&$skip=${(m-n)*10}`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Key': 'bitbook',
@@ -37,6 +37,17 @@ class DataServices {
             .catch((error) => {
                 return { error: error.message }
             })
+    }
+    getPostsCount = () =>{
+        return fetch(`http://bitbookapi.azurewebsites.net/api/posts/count`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Key': 'bitbook',
+                'SessionId': '7A5D8FF8-B04D-4C8C-9812-8B44EB7E4C94'
+            },
+            method: 'GET'
+        })
+            .then(response=> response.json())
     }
 
     getTextPost = (id) => {
