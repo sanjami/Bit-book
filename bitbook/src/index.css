@@ -193,4 +193,13 @@ background: #8188f8;
   width:100%;
 }
 
+.visible{
+  float:right;
+  padding:6px;
+  background-color: #5d64bb;
+  color: white;
+  border:1px solid #5d64bb;
+margin-right: 5px;
+border-radius: 5px;
+}
 

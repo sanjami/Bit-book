@@ -254,7 +254,7 @@ class Home extends Component {
                         <Form.Field control={Button} onClick={this.checkVideoInput} className='post-btn'>POST</Form.Field>
                         <Form.Field control={Button} onClick={this.closeModal} className='close-btn'>CLOSE</Form.Field>
                     </Form.Group>
-                    <div id='warning' className={this.state.message ? 'visible' : 'invisible'}>{this.state.message}</div>
+                    <div id='warning' className={this.state.message ? 'visibleDiv' : 'invisible'}>{this.state.message}</div>
                 </Form>
             </Container>
         )
