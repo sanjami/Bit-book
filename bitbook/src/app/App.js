@@ -8,6 +8,7 @@ import TextPostDetails from './PostPage/TextPostDetails';
 import ImagePostDetails from './PostPage/ImagePostDetails';
 import VideoPostDetails from './PostPage/VideoPostDetails';
 import Profile from './ProfilePage/Profile';
+import LoginAndRegister from './LoginRegisterPage/LoginAndRegister';
 
 
 class App extends Component {
@@ -23,6 +24,7 @@ class App extends Component {
           <Route exact path='/feeds/text:id' component={TextPostDetails} />
           <Route exact path='/feeds/image:id' component={ImagePostDetails} />
           <Route exact path='/feeds/video:id' component={VideoPostDetails} />
+          <Route exact path='/login' component={LoginAndRegister} />
         </Switch>
         <Footer />
       </div>
