@@ -352,6 +352,49 @@ class DataServices {
             })
     }
 
+    login = (data) => {
+        return fetch('http://bitbookapi.azurewebsites.net/api/login', {
+            headers: {
+                'Content-Type': 'application/json',
+                'Key': 'bitbook',
+                'SessionId': '7A5D8FF8-B04D-4C8C-9812-8B44EB7E4C94'
+            },
+            body: data,
+            method: 'POST'
+        })
+        .then((response) => {
+            if (response.ok === false) {
+                var error = new Error(response.statusText);
+                throw error
+            }
+            return response;
+        })
+        .catch((error) => {
+            return { error: error.message }
+        })
+    }
+
+    register = (data) => {
+        return fetch('http://bitbookapi.azurewebsites.net/api/register', {
+            headers: {
+                'Content-Type': 'application/json',
+                'Key': 'bitbook',
+                'SessionId': '7A5D8FF8-B04D-4C8C-9812-8B44EB7E4C94'
+            },
+            body: data,
+            method: 'POST'
+        })
+        .then((response) => {
+            if (response.ok === false) {
+                var error = new Error(response.statusText);
+                throw error
+            }
+            return response
+        })
+        .catch((error) => {
+            return { error: error.message }
+        })
+    }
 }
 
 export const dataServices = new DataServices();
