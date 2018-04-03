@@ -353,7 +353,6 @@ class Home extends Component {
                     />
 
                     <ErrorComponent errorMessage={this.state.error} />
-                    <PostList posts={this.state.selectedPosts} handleBigPhoto={this.handleBigPhoto} />
 
                 </div>
                 <div className="four wide column">
