@@ -9,7 +9,7 @@ import ImagePostDetails from './PostPage/ImagePostDetails';
 import VideoPostDetails from './PostPage/VideoPostDetails';
 import Profile from './ProfilePage/Profile';
 import LoginAndRegister from './LoginRegisterPage/LoginAndRegister';
-
+import { authService } from '../service/authenticationService'
 
 class App extends Component {
   render() {
@@ -30,7 +30,7 @@ class App extends Component {
             <Footer />
           </React.Fragment> :
           <Switch>
-            <Route exact path='/login' component={LoginAndRegister} />
+          <Route exact path='/login' component={LoginAndRegister} />
             <Redirect from='/' to='/login' />
           </Switch>
         }

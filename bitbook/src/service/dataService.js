@@ -4,15 +4,23 @@ import VideoPost from '../entities/VideoPost';
 import User from '../entities/User';
 import Comment from '../entities/Comment'
 
+const makeHeader = () => {
+    let stringUser = sessionStorage.getItem('user');
+    let objUser = JSON.parse(stringUser);
+    let session = objUser.sessionId;
+    let header = {
+        'Content-Type': 'application/json',
+        'Key': '516AE7C',
+        'SessionId': session
+    }
+    return header;
+}
+
 class DataServices {
 
     getPosts = (n, m) => {
         return fetch(`http://bitbookapi.azurewebsites.net/api/Posts?$top=10&$skip=${(m-n)*10}`, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Key': 'bitbook',
-                'SessionId': '7A5D8FF8-B04D-4C8C-9812-8B44EB7E4C94'
-            },
+            headers: makeHeader(),
             method: 'GET'
         })
             .then((response) => {
@@ -42,8 +50,8 @@ class DataServices {
         return fetch(`http://bitbookapi.azurewebsites.net/api/posts/count`, {
             headers: {
                 'Content-Type': 'application/json',
-                'Key': 'bitbook',
-                'SessionId': '7A5D8FF8-B04D-4C8C-9812-8B44EB7E4C94'
+                'Key': '516AE7C',
+                'SessionId': 'e388bf76-9102-4377-9a9e-abc074ce2a48'
             },
             method: 'GET'
         })
@@ -54,8 +62,8 @@ class DataServices {
         return fetch(`http://bitbookapi.azurewebsites.net/api/TextPosts/${id}`, {
             headers: {
                 'Content-Type': 'application/json',
-                'Key': 'bitbook',
-                'SessionId': '7A5D8FF8-B04D-4C8C-9812-8B44EB7E4C94'
+                'Key': '516AE7C',
+                'SessionId': 'e388bf76-9102-4377-9a9e-abc074ce2a48'
             },
             method: 'GET'
         })
@@ -77,8 +85,8 @@ class DataServices {
         return fetch(`http://bitbookapi.azurewebsites.net/api/ImagePosts/${id}`, {
             headers: {
                 'Content-Type': 'application/json',
-                'Key': 'bitbook',
-                'SessionId': '7A5D8FF8-B04D-4C8C-9812-8B44EB7E4C94'
+                'Key': '516AE7C',
+                'SessionId': 'e388bf76-9102-4377-9a9e-abc074ce2a48'
             },
             method: 'GET'
         })
@@ -100,8 +108,8 @@ class DataServices {
         return fetch(`http://bitbookapi.azurewebsites.net/api/VideoPosts/${id}`, {
             headers: {
                 'Content-Type': 'application/json',
-                'Key': 'bitbook',
-                'SessionId': '7A5D8FF8-B04D-4C8C-9812-8B44EB7E4C94'
+                'Key': '516AE7C',
+                'SessionId': 'e388bf76-9102-4377-9a9e-abc074ce2a48'
             },
             method: 'GET'
         })
@@ -123,8 +131,8 @@ class DataServices {
         return fetch('http://bitbookapi.azurewebsites.net/api/users', {
             headers: {
                 'Content-Type': 'application/json',
-                'Key': 'bitbook',
-                'SessionId': '7A5D8FF8-B04D-4C8C-9812-8B44EB7E4C94'
+                'Key': '516AE7C',
+                'SessionId': 'e388bf76-9102-4377-9a9e-abc074ce2a48'
             },
             method: 'GET'
         })
@@ -145,8 +153,8 @@ class DataServices {
         return fetch(`http://bitbookapi.azurewebsites.net/api/users/${id}`, {
             headers: {
                 'Content-Type': 'application/json',
-                'Key': 'bitbook',
-                'SessionId': '7A5D8FF8-B04D-4C8C-9812-8B44EB7E4C94'
+                'Key': '516AE7C',
+                'SessionId': 'e388bf76-9102-4377-9a9e-abc074ce2a48'
             },
             method: 'GET'
         })
@@ -170,8 +178,8 @@ class DataServices {
             // body: JSON.stringify(newTextPost),
             headers: {
                 'Content-Type': 'application/json',
-                'Key': 'bitbook',
-                'SessionId': '7A5D8FF8-B04D-4C8C-9812-8B44EB7E4C94'
+                'Key': '516AE7C',
+                'SessionId': 'e388bf76-9102-4377-9a9e-abc074ce2a48'
             },
             method: 'POST',
             body: JSON.stringify({
@@ -196,9 +204,9 @@ class DataServices {
             headers: {
                 'Content-Type': 'application/json',
                 'Key': 'bitbook',
-                'SessionId': '7A5D8FF8-B04D-4C8C-9812-8B44EB7E4C94'
+                'SessionId': 'e388bf76-9102-4377-9a9e-abc074ce2a48'
             },
-            method: 'POST',
+            method: '516AE7C',
             body: JSON.stringify({
                 imageUrl: newImagePost
             })
@@ -221,8 +229,8 @@ class DataServices {
             // body: JSON.stringify(newVideoPost),
             headers: {
                 'Content-Type': 'application/json',
-                'Key': 'bitbook',
-                'SessionId': '7A5D8FF8-B04D-4C8C-9812-8B44EB7E4C94'
+                'Key': '516AE7C',
+                'SessionId': 'e388bf76-9102-4377-9a9e-abc074ce2a48'
             },
             method: 'POST',
             body: JSON.stringify({
@@ -246,8 +254,8 @@ class DataServices {
         return fetch('http://bitbookapi.azurewebsites.net/api/comments', {
             headers: {
                 'Content-Type': 'application/json',
-                'Key': 'bitbook',
-                'SessionId': '7A5D8FF8-B04D-4C8C-9812-8B44EB7E4C94'
+                'Key': '516AE7C',
+                'SessionId': 'e388bf76-9102-4377-9a9e-abc074ce2a48'
             },
             body: JSON.stringify(data),
             method: 'POST'
@@ -268,8 +276,8 @@ class DataServices {
         return fetch(`http://bitbookapi.azurewebsites.net/api/comments?postId=${id}`, {
             headers: {
                 'Content-Type': 'application/json',
-                'Key': 'bitbook',
-                'SessionId': '7A5D8FF8-B04D-4C8C-9812-8B44EB7E4C94'
+                'Key': '516AE7C',
+                'SessionId': 'e388bf76-9102-4377-9a9e-abc074ce2a48'
             },
             method: 'GET'
         })
@@ -291,8 +299,8 @@ class DataServices {
         console.log(data)
         return fetch('http://bitbookapi.azurewebsites.net/api/upload/', {
             headers: {
-                'Key': 'bitbook',
-                'SessionId': '7A5D8FF8-B04D-4C8C-9812-8B44EB7E4C94',
+                'Key': '516AE7C',
+                'SessionId': 'e388bf76-9102-4377-9a9e-abc074ce2a48',
             },
             body: data,
             method: 'POST'
@@ -313,8 +321,8 @@ class DataServices {
         return fetch('http://bitbookapi.azurewebsites.net/api/profiles', {
             headers: {
                 'Content-Type': 'application/json',
-                'Key': 'bitbook',
-                'SessionId': '7A5D8FF8-B04D-4C8C-9812-8B44EB7E4C94'
+                'Key': '516AE7C',
+                'SessionId': 'e388bf76-9102-4377-9a9e-abc074ce2a48'
             },
             body: JSON.stringify(data),
             method: 'PUT'
@@ -335,8 +343,8 @@ class DataServices {
         return fetch(`http://bitbookapi.azurewebsites.net/api/Posts/${id}`, {
             headers: {
                 'Content-Type': 'application/json',
-                'Key': 'bitbook',
-                'SessionId': '7A5D8FF8-B04D-4C8C-9812-8B44EB7E4C94'
+                'Key': '516AE7C',
+                'SessionId': 'e388bf76-9102-4377-9a9e-abc074ce2a48'
             },
             method: 'DELETE'
         })
@@ -356,10 +364,10 @@ class DataServices {
         return fetch('http://bitbookapi.azurewebsites.net/api/login', {
             headers: {
                 'Content-Type': 'application/json',
-                'Key': 'bitbook',
-                'SessionId': '7A5D8FF8-B04D-4C8C-9812-8B44EB7E4C94'
+                'Key': '516AE7C',
+                'SessionId': 'e388bf76-9102-4377-9a9e-abc074ce2a48'
             },
-            body: data,
+            body:  JSON.stringify(data),
             method: 'POST'
         })
         .then((response) => {
@@ -367,7 +375,7 @@ class DataServices {
                 var error = new Error(response.statusText);
                 throw error
             }
-            return response;
+            return response.json();
         })
         .catch((error) => {
             return { error: error.message }
@@ -378,10 +386,10 @@ class DataServices {
         return fetch('http://bitbookapi.azurewebsites.net/api/register', {
             headers: {
                 'Content-Type': 'application/json',
-                'Key': 'bitbook',
-                'SessionId': '7A5D8FF8-B04D-4C8C-9812-8B44EB7E4C94'
+                'Key': '516AE7C',
+                'SessionId': 'e388bf76-9102-4377-9a9e-abc074ce2a48'
             },
-            body: data,
+            body: JSON.stringify(data),
             method: 'POST'
         })
         .then((response) => {

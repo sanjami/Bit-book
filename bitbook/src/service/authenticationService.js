@@ -1,11 +1,12 @@
-import { dataService } from './dataService';
+import { dataServices } from './dataService';
 
 class AuthService {
 
     userLogin = (data) => {
-        dataService.login(data)
+        dataServices.login(data)
             .then((result) => {
-                sessionStorage.setItem('user', result)
+                console.log(result);
+                sessionStorage.setItem('user', JSON.stringify(result))
             })
     }
 
@@ -14,22 +15,24 @@ class AuthService {
     }
 
     userRegister = (data) => {
-        dataService.register(data)
-        .then((result) => {
-            sessionStorage.setItem('user', result)
-        })
+        dataServices.register(data)
+            .then((result) => {
+                sessionStorage.setItem('user', result)
+            })
     }
 
     isLoggedIn = () => {
-        let stringUser = sessionStorage.getItem('user');
-        let objUser = JSON.parse(stringUser);
-        if(objUser.sessionId){
-            return true;
+        if (sessionStorage.getItem('user')) {
+            let stringUser = sessionStorage.getItem('user');
+            let objUser = JSON.parse(stringUser);
+            if (objUser.sessionId) {
+                console.log(objUser.sessionId)
+                return true;
+            } else {
+                return false;
+            }
         }
     }
-
-
-
 
 }
 
