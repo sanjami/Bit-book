@@ -80,7 +80,6 @@ const PostItem = (props) => {
                     <div className='content'><Button  className='delete-btn' onClick={props.deleteMyPost}>Delete</Button></div>
                     <i className="video icon icon-type"></i>
                     {props.onePost.type}
-                </div>
         </Container>
 
     }

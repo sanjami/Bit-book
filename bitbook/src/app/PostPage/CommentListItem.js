@@ -16,7 +16,6 @@ class CommentListItem extends Component {
   componentDidMount() {
     dataServices.getUser(this.props.oneComment.authorId)
       .then((myUser) => {
-        console.log(myUser)
         this.setState({
           userAvatar: myUser.avatarUrl
         })

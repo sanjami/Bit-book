@@ -53,7 +53,6 @@ class ImagePostDetails extends Component {
     }
 
     render() {
-        console.log(this.state.comments);
         return (
             <div className="ui three column grid">
                 <div className="row">

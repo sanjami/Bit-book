@@ -151,10 +151,10 @@ class Profile extends Component {
                 errorMessage: ''
             })
         }
-
         if(!event.target.value) {
             this.setState({
-                buttonDisabled: true
+                buttonDisabled: true,
+                errorMessage: 'All data is required'
             })
         }
     }
