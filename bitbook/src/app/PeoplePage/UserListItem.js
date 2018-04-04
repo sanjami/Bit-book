@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
-import { Segment, List, Image } from "semantic-ui-react";
+import { List, Image } from "semantic-ui-react";
 
 const UserListItem = (props) => {
 

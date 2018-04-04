@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { Button, Checkbox, Form, Container } from 'semantic-ui-react'
+import React from 'react'
+import { Button, Form, Container } from 'semantic-ui-react'
 import { dataServices } from '../../service/dataService';
 import ErrorComponent from '../sharedComponents/ErrorComponent';
 

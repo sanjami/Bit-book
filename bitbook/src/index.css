@@ -208,3 +208,6 @@ border-radius: 5px;
   display: inline-block;
 }
 
+#editButton{
+  float:none
+}

@@ -9,8 +9,8 @@ import { sessionService } from './sessionService'
 
 class DataServices {
 
-    getPosts = (n, m) => {
-        return fetch(`http://bitbookapi.azurewebsites.net/api/Posts?$top=10&$skip=${(m-n)*10}`, {
+    getPosts = (page) => {
+        return fetch(`http://bitbookapi.azurewebsites.net/api/Posts?$top=10&$skip=${page*10}&$orderby=DateCreated desc`, {
             headers: sessionService.makeHeader(),
             method: 'GET'
         })
@@ -42,7 +42,7 @@ class DataServices {
             headers: sessionService.makeHeader(),
             method: 'GET'
         })
-            .then(response=> response.json())
+            .then(response => response.json())
     }
 
     getTextPost = (id) => {
@@ -138,6 +138,24 @@ class DataServices {
                 return { error: error.message }
             })
     }
+    getProfile = () => {
+        return fetch(`http://bitbookapi.azurewebsites.net/api/profile`, {
+            headers: sessionService.makeHeader(),
+            method: 'GET'
+        })
+            .then((response) => {
+                if (response.ok === false) {
+                    var error = new Error(response.statusText);
+                    throw error
+                }
+
+                return response.json()
+            })
+            .then((user) =>user.userId)
+            .catch((error) => {
+                return { error: error.message }
+            })
+    }
 
     addNewTextPost = (newTextPost) => {
         return fetch('http://bitbookapi.azurewebsites.net/api/TextPosts', {
@@ -162,7 +180,7 @@ class DataServices {
     addNewImagePost = (newImagePost) => {
         return fetch('http://bitbookapi.azurewebsites.net/api/ImagePosts', {
             headers: sessionService.makeHeader(),
-            method: '516AE7C',
+            method: 'POST',
             body: JSON.stringify({
                 imageUrl: newImagePost
             })
@@ -297,7 +315,11 @@ class DataServices {
 
     login = (data) => {
         return fetch('http://bitbookapi.azurewebsites.net/api/login', {
-            headers: sessionService.makeHeader(),
+            headers: {
+                'Content-Type': 'application/json',
+                'Key': '516AE7C',
+                // 'SessionId': 'e388bf76-9102-4377-9a9e-abc074ce2a48'
+            },
             body:  JSON.stringify(data),
             method: 'POST'
         })
@@ -315,7 +337,11 @@ class DataServices {
 
     register = (data) => {
         return fetch('http://bitbookapi.azurewebsites.net/api/register', {
-            headers: sessionService.makeHeader(),
+            headers: {
+                'Content-Type': 'application/json',
+                'Key': '516AE7C',
+                // 'SessionId': 'e388bf76-9102-4377-9a9e-abc074ce2a48',
+            },
             body: JSON.stringify(data),
             method: 'POST'
         })

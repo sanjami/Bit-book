@@ -45,7 +45,7 @@ class People extends Component {
     
     
     checkSearchUsers = () => {
-        if(this.state.searchUsers == true) {
+        if(this.state.searchUsers === true) {
             return this.state.filterUsers
         } else {
             return this.state.users
@@ -54,13 +54,13 @@ class People extends Component {
 
     render() {
         return <div className="ui grid">
-            <div class="five wide column" />
+            <div className="five wide column" />
             <div className="six wide column">
             <Search handleChange={this.handleChange} inputValue={this.state.inputValue} />
             <UserList myUsers={this.checkSearchUsers()} />
             <ErrorComponent errorMessage={this.state.error} />
             </div>
-             <div class="five wide column"></div>
+             <div className="five wide column"></div>
           </div>
     }
 

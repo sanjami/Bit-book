@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import UserListItem from './UserListItem';
 
 const UserList = (props) => {
@@ -6,7 +6,7 @@ const UserList = (props) => {
     return (
         <div>
        {props.myUsers.map((user) => {
-          return ( <div class="column" key ={user.id}>
+          return ( <div className="column" key ={user.id}>
            <UserListItem  oneUser={user}/>
         </div>)
        })}

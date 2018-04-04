@@ -3,12 +3,14 @@ import { dataServices } from './dataService';
 class AuthService {
 
     userLogin = (data) => {
-        dataServices.login(data)
+        return dataServices.login(data)
             .then((result) => {
-                console.log(result);
                 sessionStorage.setItem('user', JSON.stringify(result));
-                window.location.assign('/');
+                dataServices.getProfile()
+                .then((user) =>{
+                sessionStorage.setItem('userId', JSON.stringify(user));
             })
+        })
     }
 
     userLogout = () => {
@@ -29,8 +31,7 @@ class AuthService {
             let stringUser = sessionStorage.getItem('user');
             let objUser = JSON.parse(stringUser);
             if (objUser.sessionId) {
-                console.log(objUser.sessionId)
-                return true;
+               return true;
             } else {
                 return false;
             }
