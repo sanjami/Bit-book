@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon, Label, Menu, Container } from 'semantic-ui-react'
+import { Label, Container } from 'semantic-ui-react'
 
 const PostAndCommentsCount = (props) => (
     <Container id ='postAndCommentsCount'>

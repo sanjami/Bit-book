@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from "react-router-dom";
 import { Container } from 'semantic-ui-react';
 import { Button } from 'semantic-ui-react';
 import Segment from 'semantic-ui-react/dist/commonjs/elements/Segment/Segment';
@@ -7,9 +6,10 @@ import Segment from 'semantic-ui-react/dist/commonjs/elements/Segment/Segment';
 
 
 const PostItem = (props) => {
+
     if (props.onePost.type === "text") {
         return <Container className="ui card">
-            <Segment as='a' href={`#feeds/${props.onePost.type}${props.onePost.id}`} >
+            <Segment as='a' href={`#feeds/${props.onePost.type}/${props.onePost.id}`} >
                 <div className="content">
                     <p>{props.onePost.text}</p>
                 </div>
@@ -22,7 +22,7 @@ const PostItem = (props) => {
                 </span>
 
                 <div className='content'>
-                    <button onClick={props.deleteMyPost} className={window.location.hash === `#/feeds/text${props.onePost.id}` ? 'visible' : 'invisible'}>Delete</button>
+                    <button onClick={props.deleteMyPost} className={window.location.hash === `#/feeds/text/${props.onePost.id}` ? 'visible' : 'invisible'}>Delete</button>
                 </div>
                 <i className="file alternate icon icon-type"></i>
                 {props.onePost.type}
@@ -32,9 +32,9 @@ const PostItem = (props) => {
     } else if (props.onePost.type === "image") {
         return <React.Fragment>
             <Container className="ui card">
-                <Segment as="a" href={`#feeds/${props.onePost.type}${props.onePost.id}`} >
+                <Segment as="a" href={`#feeds/${props.onePost.type}/${props.onePost.id}`} >
                     <div className="image">
-                        <img src={props.onePost.imageUrl} id='segmentPhoto' />
+                        <img src={props.onePost.imageUrl} id='segmentPhoto' alt={props.onePost.id}/>
                     </div>
                 </Segment>
                 <div className="content">
@@ -43,8 +43,8 @@ const PostItem = (props) => {
                         {props.onePost.commentsNum}
                     </span>
                     <div className='content'>
-                        <button onClick={props.deleteMyPost}  className={window.location.hash === `#/feeds/image${props.onePost.id}` ? 'visible' : 'invisible'}>Delete</button>
-                        <button  className={window.location.hash != `#/feeds/image${props.onePost.id}` ? 'visible' : 'invisible'} onClick={() => { props.handleBigPhoto(props.onePost.imageUrl) }}>Image preview</button>
+                        <button onClick={props.deleteMyPost}  className={window.location.hash === `#/feeds/image/${props.onePost.id}` ? 'visible' : 'invisible'}>Delete</button>
+                        <button  className={window.location.hash !== `#/feeds/image/${props.onePost.id}` ? 'visible' : 'invisible'} onClick={() => { props.handleBigPhoto(props.onePost.imageUrl) }}>Image preview</button>
                     </div>
                     <i className="image icon icon-type"></i>
                     {props.onePost.type}
@@ -65,16 +65,14 @@ const PostItem = (props) => {
             
                 <div className='content'>
                 
-               <a href={`#feeds/${props.onePost.type}${props.onePost.id}`}>
+               <a href={`#feeds/${props.onePost.type}/${props.onePost.id}`}>
                <i className="video icon icon-type"></i>
                {props.onePost.type}
                 </a>
-                <button onClick={props.deleteMyPost} className={window.location.hash === `#/feeds/video${props.onePost.id}` ? 'visible' : 'invisible'}>Delete</button>
+                <button onClick={props.deleteMyPost} className={window.location.hash === `#/feeds/video/${props.onePost.id}` ? 'visible' : 'invisible'}>Delete</button>
                </div>
             </div>
-
-                    <div className='content'><Button  className='delete-btn' onClick={props.deleteMyPost}>Delete</Button></div>
-
+                    
         </Container>
 
     }

@@ -3,7 +3,7 @@ import { dataServices } from '../../service/dataService';
 import UserCard from './UserCard';
 import PostAndCommentsCount from './PostAndCommentsCount';
 import Modal from 'react-modal';
-import {Label, Form ,Image, Input, Button, Message, Container} from 'semantic-ui-react';
+import { Form ,Image, Input, Button, Container} from 'semantic-ui-react';
 import ErrorComponent from '../sharedComponents/ErrorComponent';
 
 class Profile extends Component {
@@ -40,6 +40,9 @@ class Profile extends Component {
     }
     })
 }
+
+
+
 
     componentDidMount() {
        this.getUserData()
@@ -160,7 +163,7 @@ class Profile extends Component {
         const cutUrl = this.state.newPhotoUrl.slice(myUrlLength - 3);
         const cutUrlJpeg = this.state.newPhotoUrl.slice(myUrlLength - 4);
 
-        if (cutUrl != 'jpg' && cutUrl != 'png' && cutUrl != 'gif' && cutUrlJpeg != 'jpeg') {
+        if (cutUrl !== 'jpg' && cutUrl !== 'png' && cutUrl !== 'gif' && cutUrlJpeg !== 'jpeg') {
             this.setState({
                 errorMessage: 'Post is not image',
                 buttonDisabled:true
