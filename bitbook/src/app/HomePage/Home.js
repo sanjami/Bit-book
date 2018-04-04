@@ -40,15 +40,13 @@ class Home extends Component {
                         error: myPosts.error
                     })
                 } else {
-                    let { textPosts } = myPosts;
-                    let { videoPosts } = myPosts;
-                    let { imagePosts } = myPosts;
+                    let { textPosts, videoPosts, imagePosts } = myPosts;
                     let feedPosts = [...textPosts, ...videoPosts, ...imagePosts]
                     this.setState({
-                        textPosts: textPosts,
-                        videoPosts: videoPosts,
-                        imagePosts: imagePosts,
-                        feedPosts: feedPosts,
+                        textPosts,
+                        videoPosts,
+                        imagePosts,
+                        feedPosts,
                         selectedPosts: feedPosts,
                         buttonDisabled: true
                     })
@@ -93,7 +91,6 @@ class Home extends Component {
             input: event.target.value
         })
         this.textValidation()
-
     }
 
     /* Validation of text posts */
@@ -112,8 +109,7 @@ class Home extends Component {
                         this.setState({
                            activePage: 0
                     })
-                    }
-                   
+                    }                  
                 }
                 )
         }
