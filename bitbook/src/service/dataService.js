@@ -239,7 +239,6 @@ class DataServices {
 
 
     uploadPhoto = (data) => {
-        console.log(data)
         return fetch('http://bitbookapi.azurewebsites.net/api/upload/', {
             headers: {
                 'Key': '516AE7C',
@@ -297,7 +296,10 @@ class DataServices {
 
     login = (data) => {
         return fetch('http://bitbookapi.azurewebsites.net/api/login', {
-            headers: sessionService.makeHeader(),
+            headers : {
+                'Content-Type': 'application/json',
+                'Key': '516AE7C'
+            },
             body:  JSON.stringify(data),
             method: 'POST'
         })
@@ -315,7 +317,10 @@ class DataServices {
 
     register = (data) => {
         return fetch('http://bitbookapi.azurewebsites.net/api/register', {
-            headers: sessionService.makeHeader(),
+            headers : {
+                'Content-Type': 'application/json',
+                'Key': '516AE7C'
+            },
             body: JSON.stringify(data),
             method: 'POST'
         })

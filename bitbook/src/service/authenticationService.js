@@ -3,11 +3,10 @@ import { dataServices } from './dataService';
 class AuthService {
 
     userLogin = (data) => {
-        dataServices.login(data)
+        return dataServices.login(data)
             .then((result) => {
-                console.log(result);
-                sessionStorage.setItem('user', JSON.stringify(result));
-                window.location.assign('/');
+                sessionStorage.setItem('user', JSON.stringify(result));       
+                return result;
             })
     }
 
@@ -17,7 +16,7 @@ class AuthService {
     }
 
     userRegister = (data) => {
-        dataServices.register(data)
+         dataServices.register(data)
             .then((result) => {
                 sessionStorage.setItem('user', JSON.stringify(result));
                 window.location.assign('/login');

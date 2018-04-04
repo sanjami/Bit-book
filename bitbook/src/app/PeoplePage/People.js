@@ -30,6 +30,7 @@ class People extends Component {
             });
         }
         });
+
     }
 
     /* Search bar for users */ 
