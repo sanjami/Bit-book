@@ -33,7 +33,7 @@ class Home extends Component {
 
 
     getAllPosts = (activePage, m) => {
-        dataServices.getPosts(activePage,m)
+        dataServices.getPosts(activePage, m)
             .then(myPosts => {
                 if (myPosts.error) {
                     this.setState({
@@ -60,10 +60,10 @@ class Home extends Component {
         dataServices.getPostsCount()
                 .then(countPosts=>{
                     this.setState({
-                        numberOfAllPosts: countPosts
+                        numberOfAllPosts: Math.ceil(countPosts/10)
                     })
                 });
-        this.getAllPosts(this.state.activePage,Math.ceil(this.state.numberOfAllPosts/10));
+        this.getAllPosts(this.state.activePage, this.state.numberOfAllPosts);
     }
 
     /* Changing state of input for all new posts */
