@@ -7,6 +7,8 @@ const Header = () => {
   const handleClick = () => {
     authService.userLogout();
   }
+
+      let userId = JSON.parse(sessionStorage.getItem('userId')); 
   
     return <div className="ui grid bgColor">
         <div className="two wide column" />
@@ -31,7 +33,7 @@ const Header = () => {
           </Link>
         </div>
         <div className="one wide column nav-links">
-          <Link to="/profile" className="header-link">
+          <Link to={`/profile/${userId}`} className="header-link">
             Profile
           </Link>
         </div>

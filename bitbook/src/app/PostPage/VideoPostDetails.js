@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { dataServices } from '../../service/dataService';
-import PostList from '../HomePage/PostList';
 import PostItem from '../sharedComponents/PostItem';
 import AddCommentForm from './AddCommentForm';
 import CommentList from './CommentList';

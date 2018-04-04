@@ -213,6 +213,7 @@ border-radius: 5px;
   margin-right: 10%;
 }
 
+
 #tabs {
   width:500px;
   display: inline-block;
@@ -234,3 +235,7 @@ border-radius: 5px;
   clear: both;
 }  */
 
+
+#editButton{
+  float:none
+}

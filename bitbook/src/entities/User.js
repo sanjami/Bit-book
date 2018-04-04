@@ -3,6 +3,7 @@ class User {
     constructor(user){
         this.name = user.name;
         this.id = user.id;
+        this.userId = user.userId;
         this.shortAbout = user.aboutShort;
         this.upDate = user.lastPostDate;
         this.avatarUrl = user.avatarUrl;

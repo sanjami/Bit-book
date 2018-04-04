@@ -1,6 +1,6 @@
 import React from 'react';
 import CommentListItem from './CommentListItem';
-import { Card, Container } from 'semantic-ui-react'
+import { Card } from 'semantic-ui-react'
 
 
 const CommentList = (props) => {

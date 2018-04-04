@@ -4,10 +4,13 @@ class AuthService {
 
     userLogin = (data) => {
         return dataServices.login(data)
-            .then((result) => {
-                sessionStorage.setItem('user', JSON.stringify(result));       
-                return result;
+            .then((result) => 
+                sessionStorage.setItem('user', JSON.stringify(result)); 
+                dataServices.getProfile()
+                .then((user) =>{
+                sessionStorage.setItem('userId', JSON.stringify(user));
             })
+        })
     }
 
     userLogout = () => {
@@ -28,8 +31,7 @@ class AuthService {
             let stringUser = sessionStorage.getItem('user');
             let objUser = JSON.parse(stringUser);
             if (objUser.sessionId) {
-                console.log(objUser.sessionId)
-                return true;
+               return true;
             } else {
                 return false;
             }
