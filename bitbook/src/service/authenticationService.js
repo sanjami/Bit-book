@@ -6,18 +6,21 @@ class AuthService {
         dataServices.login(data)
             .then((result) => {
                 console.log(result);
-                sessionStorage.setItem('user', JSON.stringify(result))
+                sessionStorage.setItem('user', JSON.stringify(result));
+                window.location.assign('/');
             })
     }
 
     userLogout = () => {
-        sessionStorage.clear()
+        sessionStorage.clear();
+        window.location.assign('/login');
     }
 
     userRegister = (data) => {
         dataServices.register(data)
             .then((result) => {
-                sessionStorage.setItem('user', result)
+                sessionStorage.setItem('user', JSON.stringify(result));
+                window.location.assign('/login');
             })
     }
 
