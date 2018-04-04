@@ -203,10 +203,38 @@ margin-right: 5px;
 border-radius: 5px;
 }
 
+.welcome-container {
+  margin-top: 14%;
+}
+
 #login{
   width:500px;
   display: inline-block;
+  margin-right: 10%;
 }
+
+
+#tabs {
+  width:500px;
+  display: inline-block;
+}
+
+
+/* .headline-app {
+  float: left;
+  clear: both;
+} */
+
+#login p {
+  line-height: 31px;
+  font-size: 15px;
+}
+
+/* .tabs {
+  float: right;
+  clear: both;
+}  */
+
 
 #editButton{
   float:none

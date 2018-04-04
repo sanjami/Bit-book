@@ -4,8 +4,8 @@ class AuthService {
 
     userLogin = (data) => {
         return dataServices.login(data)
-            .then((result) => {
-                sessionStorage.setItem('user', JSON.stringify(result));
+            .then((result) => 
+                sessionStorage.setItem('user', JSON.stringify(result)); 
                 dataServices.getProfile()
                 .then((user) =>{
                 sessionStorage.setItem('userId', JSON.stringify(user));
@@ -19,7 +19,7 @@ class AuthService {
     }
 
     userRegister = (data) => {
-        dataServices.register(data)
+         dataServices.register(data)
             .then((result) => {
                 sessionStorage.setItem('user', JSON.stringify(result));
                 window.location.assign('/login');
