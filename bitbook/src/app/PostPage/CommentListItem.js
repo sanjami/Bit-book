@@ -34,7 +34,7 @@ class CommentListItem extends Component {
     return (
       <React.Fragment>
       <ErrorComponent errorMessage={this.state.error} />
-      <List divided verticalAlign="middle">
+     
         <List.Item className="list-item">
           <Image src={this.state.userAvatar} alt={this.props.oneComment.authorName} avatar />
           <List.Content>
@@ -44,7 +44,7 @@ class CommentListItem extends Component {
             </List.Description>
           </List.Content>
         </List.Item>
-      </List>
+     
       </React.Fragment>
 
 

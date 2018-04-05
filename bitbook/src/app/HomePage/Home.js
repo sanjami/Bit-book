@@ -5,7 +5,7 @@ import NewPostButton from './NewPostButton';
 import ErrorComponent from '../sharedComponents/ErrorComponent';
 import { dataServices } from '../../service/dataService';
 import Modal from 'react-modal';
-import { Form, Input, Button, Container, Icon, Pagination } from 'semantic-ui-react';
+import { Form, Input, Button, Container, Icon, Pagination, Grid } from 'semantic-ui-react';
 
 
 class Home extends Component {
@@ -232,12 +232,19 @@ class Home extends Component {
 
 
     openModal = (event, data) => {
+
+        console.log(event)
+        console.table(data)
+        console.log("open modal f" + data.value)
+        //  console.log(stacktrace())
+        console.trace()
         const modalName = data.value;
 
         this.setState({ modalIsOpen: true, currentModal: modalName });
     }
 
     closeModal = () => {
+        
         this.setState({
             modalIsOpen: false,
             input: '',
@@ -334,23 +341,18 @@ class Home extends Component {
 
     render() {
 
-        return <div className="ui three column grid">
-            <div id='theaterMode' className={this.state.selectedPhoto ? 'visible' : 'invisible'}>
-                <Button onClick={this.closeBigPhoto}>
-                    <Icon name='close' />
-                </Button>
-                <img src={this.state.selectedPhoto} alt='selected'/>
-            </div>
-            <div className="row">
-
-                <div className="four wide column">
-                    <NewPostButton className="dropdown" openPost={this.openModal} />
-                </div>
-                <div className="eight wide column">
-
+        return <Grid stackable columns={7}>
+            <Grid.Column width = {1}/>
+            <Grid.Column computer = {2} tablet={3}>
+            <NewPostButton className="dropdown" openPost={this.openModal} />
+            <MenuAllPosts handleChange={this.handleChange} />
+            </Grid.Column>
+            <Grid.Column width = {1}/>
+                    
+            <Grid.Column width = {8}>
                     <PostList posts={this.state.selectedPosts} handleBigPhoto={this.handleBigPhoto} />
-                    <Pagination
-                        // activePage={this.state.activePage}
+                    <Pagination id='pagination'
+                        activePage={this.state.activePage}
                         firstItem={null}
                         lastItem={null}
                         pointing
@@ -358,19 +360,22 @@ class Home extends Component {
                         totalPages={this.state.numberOfAllPage}
                         onPageChange={this.handlePageChange}
                     />
-
                     <ErrorComponent errorMessage={this.state.error} />
 
-                </div>
-                <div className="four wide column">
-                    <MenuAllPosts handleChange={this.handleChange} />
-                </div>
+                </Grid.Column>
+                <Grid.Column width = {4}/>
+              
 
-            </div>
             <Modal isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal} className="Modal" contentLabel="Example Modal" ariaHideApp={false} >
                 {this.renderModalComponent()}
             </Modal>
-        </div>;
+            <div id='theaterMode' className={this.state.selectedPhoto ? 'visible' : 'invisible'}>
+                <Button onClick={this.closeBigPhoto}>
+                    <Icon name='close' />
+                </Button>
+                <img src={this.state.selectedPhoto} alt='selected'/>
+            </div>
+        </Grid>;
 
 
     }
