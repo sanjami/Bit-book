@@ -4,12 +4,17 @@ class AuthService {
 
     userLogin = (data) => {
         return dataServices.login(data)
-            .then((result) => 
+            .then((result) => {
+                if(result.error) {
+                    return result;
+                } else {
                 sessionStorage.setItem('user', JSON.stringify(result)); 
                 dataServices.getProfile()
                 .then((user) =>{
                 sessionStorage.setItem('userId', JSON.stringify(user));
             })
+            return result;
+        }
         })
     }
 

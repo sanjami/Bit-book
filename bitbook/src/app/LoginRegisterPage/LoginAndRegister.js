@@ -1,6 +1,8 @@
 import React from 'react';
 import { Tab, Container, Grid, Segment, Form, Button } from 'semantic-ui-react';
 import { authService } from '../../service/authenticationService';
+import ErrorComponeny from '../sharedComponents/ErrorComponent';
+import ErrorComponent from '../sharedComponents/ErrorComponent';
 
 
 
@@ -81,6 +83,7 @@ class LoginAndRegister extends React.Component {
         if (this.usernameLogValidation() && this.passwordLogValidation()) {
             authService.userLogin(user)
                 .then((response) => {
+                    console.log(response);
                     if (response.error) {
                         this.setState({
                             errorLogBtn: response.error
@@ -236,13 +239,13 @@ class LoginAndRegister extends React.Component {
                         <Segment id='login'>
                             <h1>Welcome to Bitbook</h1><br/>
                             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-                            <div >{this.state.errorLogBtn}</div>
                         </Segment>
                     {/* </Grid.Column> */}
                     {/* <Grid.Column width={8} className='tabs'> */}
                         <Segment id='tabs'>
                             <Tab panes={[{ menuItem: 'Login', render: () => <Tab.Pane attached={false}>{this.login()} </Tab.Pane> },
                             { menuItem: 'Register', render: () => <Tab.Pane attached={false}>{this.register()}</Tab.Pane> }]} menu={{ pointing: true }} />
+                            <ErrorComponent errorMessage={this.state.errorLogBtn}/>
                         </Segment>
                     {/* </Grid.Column> */}
                 {/* // </Grid.Row> */}
