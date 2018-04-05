@@ -7,9 +7,12 @@ import Segment from 'semantic-ui-react/dist/commonjs/elements/Segment/Segment';
 
 const PostItem = (props) => {
 
+    let userId = JSON.parse(sessionStorage.getItem('userId'));
+    console.log(userId===props.onePost.userId);
+    console.log(window.location.hash.includes('#/feeds/text/'));
     if (props.onePost.type === "text") {
         return <Container className="ui card">
-            <Segment as='a' href={`#feeds/${props.onePost.type}/${props.onePost.id}`} >
+            <Segment id='post-card' as='a' href={`#feeds/${props.onePost.type}/${props.onePost.id}`} >
                 <div className="content">
                     <p>{props.onePost.text}</p>
                 </div>
@@ -22,7 +25,7 @@ const PostItem = (props) => {
                 </span>
 
                 <div className='content'>
-                    <button onClick={props.deleteMyPost} className={window.location.hash === `#/feeds/text/${props.onePost.id}` ? 'visible' : 'invisible'}>Delete</button>
+                    <button onClick={props.deleteMyPost} className={(window.location.hash.includes('#/feeds/text/'))&&(userId===props.onePost.userId) ? 'visible' : 'invisible'}>Delete</button>
                 </div>
                 <i className="file alternate icon icon-type"></i>
                 {props.onePost.type}
@@ -43,7 +46,7 @@ const PostItem = (props) => {
                         {props.onePost.commentsNum}
                     </span>
                     <div className='content'>
-                        <button onClick={props.deleteMyPost}  className={window.location.hash === `#/feeds/image/${props.onePost.id}` ? 'visible' : 'invisible'}>Delete</button>
+                        <button onClick={props.deleteMyPost}  className={window.location.hash === `#/feeds/image/${props.onePost.id}`&&(userId===props.onePost.userId) ? 'visible' : 'invisible'}>Delete</button>
                         <button  className={window.location.hash !== `#/feeds/image/${props.onePost.id}` ? 'visible' : 'invisible'} onClick={() => { props.handleBigPhoto(props.onePost.imageUrl) }}>Image preview</button>
                     </div>
                     <i className="image icon icon-type"></i>
@@ -69,7 +72,7 @@ const PostItem = (props) => {
                <i className="video icon icon-type"></i>
                {props.onePost.type}
                 </a>
-                <button onClick={props.deleteMyPost} className={window.location.hash === `#/feeds/video/${props.onePost.id}` ? 'visible' : 'invisible'}>Delete</button>
+                <button onClick={props.deleteMyPost} className={window.location.hash === `#/feeds/video/${props.onePost.id}`&&(userId===props.onePost.userId) ? 'visible' : 'invisible'}>Delete</button>
                </div>
             </div>
                     
