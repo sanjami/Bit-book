@@ -17,6 +17,7 @@ class App extends Component {
       <div>
         {authService.isLoggedIn() ?
           <React.Fragment>
+            <div class="wrapper">
             <Header />
             <Switch>
               <Route exact path='/' component={Home} />
@@ -27,6 +28,8 @@ class App extends Component {
               <Route exact path='/feeds/image/:id' component={ImagePostDetails} />
               <Route exact path='/feeds/video/:id' component={VideoPostDetails} />
             </Switch>
+            <div class="push"></div>
+            </div>
             <Footer />
           </React.Fragment> :
           <Switch>

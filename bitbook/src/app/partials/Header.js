@@ -1,43 +1,42 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import { authService } from '../../service/authenticationService'
+import {Grid, Button} from 'semantic-ui-react';
 
 const Header = () => {
 
-  const handleClick = () => {
+  const handleClick = (event) => {
+    event.preventDefault();
     authService.userLogout();
   }
 
       let userId = JSON.parse(sessionStorage.getItem('userId')); 
   
-    return <div className="ui grid bgColor">
-        <div className="two wide column" />
-        <div className="two wide column">
-          <h1 className="logo-app">Bitbook</h1>
-        </div>
+    return <Grid className='bgColor' stackable colums={2}>
+      <Grid.Column tablet={9} computer={10}>
+      <h1 className="logo-app">Bitbook</h1>
+      </Grid.Column>
+ 
 
-        <div className="seven wide column" />
-        <div className="one wide column nav-links">
-          <button onClick={handleClick}>
-            Logout
-          </button>
-        </div>
-        <div className="one wide column nav-links">
+      
+        <Grid.Column tablet={7} computer={6} className='nav-links'>
           <Link to="/" className="header-link">
             Feed
           </Link>
-        </div>
-        <div className="one wide column nav-links">
-          <Link to="/people" className="header-link">
+       
+        <Link to="/people" className="header-link">
             People
           </Link>
-        </div>
-        <div className="one wide column nav-links">
-          <Link to={`/profile/${userId}`} className="header-link">
+        
+        <Link to={`/profile/${userId}`} className="header-link">
             Profile
           </Link>
-        </div>
-      </div>;
+
+          <a onClick={handleClick} id='logout' className="header-link">
+            Logout
+          </a>
+        </Grid.Column>
+      </Grid>
 }
 
 

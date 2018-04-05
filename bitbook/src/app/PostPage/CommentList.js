@@ -1,22 +1,28 @@
 import React from 'react';
 import CommentListItem from './CommentListItem';
-import { Card } from 'semantic-ui-react'
+import { Card, List } from 'semantic-ui-react'
 
 
 const CommentList = (props) => {
     if (props.comments.length === 0) {
-        return <Card>
-                <Card.Content>
-                    <span>There are no comments</span>
-                </Card.Content>
-                 </Card>
+        
+        return <List>
+            <List.Item className="list-item">
+         <List.Content>
+            <List.Description>
+            There are no comments 
+            </List.Description>
+          </List.Content>
+                </List.Item>
+                </List>
        
     } else {
         return (
             // <div className="ui one cards">
-            <React.Fragment>
+         
+                 <List divided verticalAlign="middle">
                 {props.comments.map((comment) => <CommentListItem oneComment={comment} key={comment.id} />)}
-            </React.Fragment>
+                </List>
            
         )
     }
