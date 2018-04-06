@@ -238,27 +238,19 @@ class LoginAndRegister extends React.Component {
                 <Grid id='main' stackable columns={4} >
                     <Grid.Column  width={1} ></Grid.Column>
                     <Grid.Column  computer={7} tablet={14}  className='welcome-container'>
-                        {/* <Grid.Row>
-                    <Grid.Column width={8} className='headline-app'> */}
                         <div id='login'>
                             <h1>Welcome to Bitbook</h1><br />
                             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
                         </div>
 
                     </Grid.Column>
-                    {/* </Grid.Column> */}
-                    {/* <Grid.Column width={8} className='tabs'> */}
-                    {/* <Segment> */}
                     <Grid.Column  computer={5} tablet={14} className='tabs' >
                         <div id='tabs'>
                             <Tab panes={[{ menuItem: 'Login', render: () => <Tab.Pane attached={false}>{this.login()}  </Tab.Pane> },
                             { menuItem: 'Register', render: () => <Tab.Pane attached={false}>{this.register()}</Tab.Pane> }]} menu={{ pointing: true }} />
                             <ErrorComponent errorMessage={this.state.errorLogBtn} />
                         </div>
-                        {/* </Grid.Column> */}
-                        {/* // </Grid.Row> */}
                     </Grid.Column>
-                    {/* </Segment> */}
                     <Grid.Column  width={1} ></Grid.Column>
                 </Grid>
             </React.Fragment>
