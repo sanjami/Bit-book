@@ -8,8 +8,6 @@ import Segment from 'semantic-ui-react/dist/commonjs/elements/Segment/Segment';
 const PostItem = (props) => {
 
     let userId = JSON.parse(sessionStorage.getItem('userId'));
-    console.log(userId===props.onePost.userId);
-    console.log(window.location.hash.includes('#/feeds/text/'));
     if (props.onePost.type === "text") {
         return <Container className="ui card">
             <Segment id='post-card' as='a' href={`#feeds/${props.onePost.type}/${props.onePost.id}`} >

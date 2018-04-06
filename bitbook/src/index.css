@@ -291,3 +291,35 @@ padding-top:30px;
 margin:0 auto;
 }
 
+.error{
+  
+  width:90%;
+  height:76vh;
+  text-align: center;
+  position: fixed;
+  top:12%;
+  left:5%;
+  background-image: url( './app/sharedComponents/error-photo.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  z-index:1;
+}
+
+.errMsg{
+position:absolute;
+top:65%;
+left:50%;
+transform: translate(-50%, -50%);
+color:rgb(93, 90, 255);
+font-size: 30px;
+line-height: 1.8;
+}
+
+.error-login{
+  background: rgb(242, 242, 242);
+  margin-top: 20px;
+  padding:10px;
+  border-radius: 5px;
+  font-size: 20px;
+  color: red;
+}
