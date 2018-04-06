@@ -274,6 +274,9 @@ class LoginAndRegister extends React.Component {
                             <div className={this.state.errorRegBtn ? 'error-login' : 'invisible'} > {this.state.errorRegBtn} </div>
                         </div>
 
+
+
+
                     </Grid.Column>
                     <Grid.Column  width={1} ></Grid.Column>
                 </Grid>
