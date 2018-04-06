@@ -65,15 +65,24 @@ class Home extends Component {
       
     }
 
+componentWillReceiveProps(nextProps) {
+    if(nextProps.match.path === '/'){
+        this.getAllPosts(0);
+        this.setState({
+            activePage:1
+        })
+    }
+}
+
     /* Changing state of input for all new posts */
 
-    textValidation = () => {
-        if (this.state.input.length > 100) {
+    textValidation = (text) => {
+        if (text.length > 100) {
             this.setState({
                 message: 'Text is too long',
                 buttonDisabled: true
             });
-        } else if (this.state.input === '') {
+        } else if (text === '') {
             this.setState({
                 message: 'Text is missing',
                 buttonDisabled: true
@@ -91,13 +100,13 @@ class Home extends Component {
         this.setState({
             input: event.target.value
         })
-        this.textValidation()
+        this.textValidation(event)
     }
 
     /* Validation of text posts */
 
     checkTextInput = () => {
-        if (this.textValidation()) {
+        if (this.textValidation(this.state.input)){
             dataServices.addNewTextPost(this.state.input)
                 .then((response) => {
              if (response.error) {
@@ -232,12 +241,6 @@ class Home extends Component {
 
 
     openModal = (event, data) => {
-
-        console.log(event)
-        console.table(data)
-        console.log("open modal f" + data.value)
-        //  console.log(stacktrace())
-        console.trace()
         const modalName = data.value;
 
         this.setState({ modalIsOpen: true, currentModal: modalName });
@@ -340,7 +343,7 @@ class Home extends Component {
     }
 
     render() {
-
+console.log(this.props.match.path);
         return <Grid stackable columns={7}>
             <Grid.Column width = {1}/>
             <Grid.Column computer = {2} tablet={3}>
@@ -349,8 +352,12 @@ class Home extends Component {
             </Grid.Column>
             <Grid.Column width = {1}/>
                     
-            <Grid.Column width = {8}>
+            <Grid.Column  width = {8}>
                     <PostList posts={this.state.selectedPosts} handleBigPhoto={this.handleBigPhoto} />
+                   <Grid>
+                   <Grid.Column width = {2}>
+                   </Grid.Column>
+                   <Grid.Column  width = {8}>
                     <Pagination id='pagination'
                         activePage={this.state.activePage}
                         firstItem={null}
@@ -360,6 +367,9 @@ class Home extends Component {
                         totalPages={this.state.numberOfAllPage}
                         onPageChange={this.handlePageChange}
                     />
+                     </Grid.Column>
+                    <Grid.Column width = {2}/>
+                    </Grid>
                     <ErrorComponent errorMessage={this.state.error} />
 
                 </Grid.Column>

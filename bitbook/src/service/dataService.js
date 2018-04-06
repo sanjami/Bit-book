@@ -10,16 +10,19 @@ import { sessionService } from './sessionService'
 class DataServices {
 
     getPosts = (page) => {
-        return fetch(`http://bitbookapi.azurewebsites.net/api/Posts?$top=10&$skip=${page*10}&$orderby=DateCreated desc`, {
+        return fetch(`http://bitbookapi.azurewebsites.net/api/Posts?$top=10&$skip=${page * 10}&$orderby=DateCreated desc`, {
             headers: sessionService.makeHeader(),
             method: 'GET'
         })
             .then((response) => {
-                if (response.ok === false) {
-                    var error = new Error(response.statusText);
+                return response.json();
+            })
+            .then((data) => {
+                if (data.message) {
+                    var error = new Error(data.message);
                     throw error
                 }
-                return response.json()
+                return data;
             })
             .then((postList) => {
                 let textPosts = postList.filter((post) => post.type === "text");
@@ -37,7 +40,7 @@ class DataServices {
                 return { error: error.message }
             })
     }
-    getPostsCount = () =>{
+    getPostsCount = () => {
         return fetch(`http://bitbookapi.azurewebsites.net/api/posts/count`, {
             headers: sessionService.makeHeader(),
             method: 'GET'
@@ -51,12 +54,14 @@ class DataServices {
             method: 'GET'
         })
             .then((response) => {
-                if (response.ok === false) {
-                    var error = new Error(response.statusText);
+                return response.json();
+            })
+            .then((data) => {
+                if (data.message) {
+                    var error = new Error(data.message);
                     throw error
                 }
-
-                return response.json()
+                return data;
             })
             .then((postItem) => new TextPost(postItem))
             .catch((error) => {
@@ -70,12 +75,14 @@ class DataServices {
             method: 'GET'
         })
             .then((response) => {
-                if (response.ok === false) {
-                    var error = new Error(response.statusText);
+                return response.json();
+            })
+            .then((data) => {
+                if (data.message) {
+                    var error = new Error(data.message);
                     throw error
                 }
-
-                return response.json()
+                return data;
             })
             .then((postItem) => new ImagePost(postItem))
             .catch((error) => {
@@ -89,12 +96,14 @@ class DataServices {
             method: 'GET'
         })
             .then((response) => {
-                if (response.ok === false) {
-                    var error = new Error(response.statusText);
+                return response.json();
+            })
+            .then((data) => {
+                if (data.message) {
+                    var error = new Error(data.message);
                     throw error
                 }
-
-                return response.json()
+                return data;
             })
             .then((postItem) => new VideoPost(postItem))
             .catch((error) => {
@@ -108,11 +117,14 @@ class DataServices {
             method: 'GET'
         })
             .then((response) => {
-                if (response.ok === false) {
-                    var error = new Error(response.statusText);
+                return response.json();
+            })
+            .then((data) => {
+                if (data.message) {
+                    var error = new Error(data.message);
                     throw error
                 }
-                return response.json()
+                return data;
             })
             .then((userList) => userList.map((user) => new User(user)))
             .catch((error) => {
@@ -126,12 +138,14 @@ class DataServices {
             method: 'GET'
         })
             .then((response) => {
-                if (response.ok === false) {
-                    var error = new Error(response.statusText);
+                return response.json();
+            })
+            .then((data) => {
+                if (data.message) {
+                    var error = new Error(data.message);
                     throw error
                 }
-
-                return response.json()
+                return data;
             })
             .then((user) => new User(user))
             .catch((error) => {
@@ -144,14 +158,16 @@ class DataServices {
             method: 'GET'
         })
             .then((response) => {
-                if (response.ok === false) {
-                    var error = new Error(response.statusText);
+                return response.json();
+            })
+            .then((data) => {
+                if (data.message) {
+                    var error = new Error(data.message);
                     throw error
                 }
-
-                return response.json()
+                return data;
             })
-            .then((user) =>user.userId)
+            .then((user) => user.userId)
             .catch((error) => {
                 return { error: error.message }
             })
@@ -166,11 +182,14 @@ class DataServices {
             })
         })
             .then((response) => {
-                if (response.ok === false) {
-                    var error = new Error(response.statusText);
+                return response.json();
+            })
+            .then((data) => {
+                if (data.message) {
+                    var error = new Error(data.message);
                     throw error
                 }
-                return response.json()
+                return data;
             })
             .catch((error) => {
                 return { error: error.message }
@@ -186,11 +205,14 @@ class DataServices {
             })
         })
             .then((response) => {
-                if (response.ok === false) {
-                    var error = new Error(response.statusText);
+                return response.json();
+            })
+            .then((data) => {
+                if (data.message) {
+                    var error = new Error(data.message);
                     throw error
                 }
-                return response.json()
+                return data;
             })
             .catch((error) => {
                 return { error: error.message }
@@ -207,11 +229,14 @@ class DataServices {
             })
         })
             .then((response) => {
-                if (response.ok === false) {
-                    var error = new Error(response.statusText);
+                return response.json();
+            })
+            .then((data) => {
+                if (data.message) {
+                    var error = new Error(data.message);
                     throw error
                 }
-                return response.json()
+                return data;
             })
             .catch((error) => {
                 return { error: error.message }
@@ -226,11 +251,14 @@ class DataServices {
             method: 'POST'
         })
             .then((response) => {
-                if (response.ok === false) {
-                    var error = new Error(response.statusText);
+                return response.json();
+            })
+            .then((data) => {
+                if (data.message) {
+                    var error = new Error(data.message);
                     throw error
                 }
-                return response.json()
+                return data;
             })
             .catch((error) => {
                 return { error: error.message }
@@ -243,11 +271,14 @@ class DataServices {
             method: 'GET'
         })
             .then((response) => {
-                if (response.ok === false) {
-                    var error = new Error(response.statusText);
+                return response.json();
+            })
+            .then((data) => {
+                if (data.message) {
+                    var error = new Error(data.message);
                     throw error
                 }
-                return response.json()
+                return data;
             })
             .then((comments) => comments.map((comment) => new Comment(comment)))
             .catch((error) => {
@@ -266,11 +297,14 @@ class DataServices {
             method: 'POST'
         })
             .then((response) => {
-                if (response.ok === false) {
-                    var error = new Error(response.statusText);
+                return response.json();
+            })
+            .then((data) => {
+                if (data.message) {
+                    var error = new Error(data.message);
                     throw error
                 }
-                return response.json()
+                return data;
             })
             .catch((error) => {
                 return { error: error.message }
@@ -284,11 +318,14 @@ class DataServices {
             method: 'PUT'
         })
             .then((response) => {
-                if (response.ok === false) {
-                    var error = new Error(response.statusText);
+                return response.json();
+            })
+            .then((data) => {
+                if (data.message) {
+                    var error = new Error(data.message);
                     throw error
                 }
-                return response
+                return data;
             })
             .catch((error) => {
                 return { error: error.message }
@@ -301,11 +338,14 @@ class DataServices {
             method: 'DELETE'
         })
             .then((response) => {
-                if (response.ok === false) {
-                    var error = new Error(response.statusText);
+                return response.json();
+            })
+            .then((data) => {
+                if (data.message) {
+                    var error = new Error(data.message);
                     throw error
                 }
-                return response.json()
+                return data;
             })
             .catch((error) => {
                 return { error: error.message }
@@ -315,29 +355,32 @@ class DataServices {
     login = (data) => {
         return fetch('http://bitbookapi.azurewebsites.net/api/login', {
 
-            headers : {
+            headers: {
                 'Content-Type': 'application/json',
                 'Key': '516AE7C'
             },
-            body:  JSON.stringify(data),
+            body: JSON.stringify(data),
             method: 'POST'
         })
-        .then((response) => {
-            if (response.ok === false) {
-                var error = new Error(response.statusText);
-                throw error
-            }
-            return response.json();
-        })
-        .catch((error) => {
-            return { error: error.message }
-        })
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                if (data.error) {
+                    var error = new Error(data.error.message);
+                    throw error
+                }
+                return data;
+            })
+            .catch((error) => {
+                return { error: error.message }
+            })
     }
 
     register = (data) => {
         return fetch('http://bitbookapi.azurewebsites.net/api/register', {
 
-            headers : {
+            headers: {
                 'Content-Type': 'application/json',
                 'Key': '516AE7C'
 
@@ -345,16 +388,19 @@ class DataServices {
             body: JSON.stringify(data),
             method: 'POST'
         })
-        .then((response) => {
-            if (response.ok === false) {
-                var error = new Error(response.statusText);
-                throw error
-            }
-            return response.json();
-        })
-        .catch((error) => {
-            return { error: error.message }
-        })
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                if (data.error) {
+                    var error = new Error(data.error.message);
+                    throw error
+                }
+                return data;
+            })
+            .catch((error) => {
+                return { error: error.message }
+            })
     }
 }
 

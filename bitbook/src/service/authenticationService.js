@@ -24,10 +24,13 @@ class AuthService {
     }
 
     userRegister = (data) => {
-         dataServices.register(data)
+        return dataServices.register(data)
             .then((result) => {
+                if(result.error) {
+                    return result;
+                } else {
                 sessionStorage.setItem('user', JSON.stringify(result));
-                window.location.assign('/login');
+                }
             })
     }
 
