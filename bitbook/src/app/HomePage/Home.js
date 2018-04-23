@@ -343,7 +343,6 @@ componentWillReceiveProps(nextProps) {
     }
 
     render() {
-console.log(this.props.match.path);
         return <Grid stackable columns={7}>
             <Grid.Column width = {1}/>
             <Grid.Column computer = {2} tablet={3}>

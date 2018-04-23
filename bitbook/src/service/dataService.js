@@ -153,7 +153,7 @@ class DataServices {
             })
     }
     getProfile = () => {
-        return fetch(`http://bitbookapi.azurewebsites.net/api/profile`, {
+        return fetch('http://bitbookapi.azurewebsites.net/api/profile', {
             headers: sessionService.makeHeader(),
             method: 'GET'
         })

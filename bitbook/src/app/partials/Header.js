@@ -10,7 +10,8 @@ const Header = () => {
     authService.userLogout();
   }
 
-      let userId = JSON.parse(sessionStorage.getItem('userId')); 
+  let userId = JSON.parse(sessionStorage.getItem('userId'));
+      console.log(userId)
   
     return <Grid className='bgColor' stackable colums={2}>
       <Grid.Column tablet={9} computer={10}>

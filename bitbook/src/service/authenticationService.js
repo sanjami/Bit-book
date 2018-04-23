@@ -1,4 +1,5 @@
 import { dataServices } from './dataService';
+import { CLIENT_RENEG_LIMIT } from 'tls';
 
 class AuthService {
 
@@ -8,8 +9,8 @@ class AuthService {
                 if(result.error) {
                     return result;
                 } else {
-                sessionStorage.setItem('user', JSON.stringify(result)); 
-                dataServices.getProfile()
+                    sessionStorage.setItem('user', JSON.stringify(result)); 
+                    dataServices.getProfile()
                 .then((user) =>{
                 sessionStorage.setItem('userId', JSON.stringify(user));
             })
@@ -29,7 +30,7 @@ class AuthService {
                 if(result.error) {
                     return result;
                 } else {
-                sessionStorage.setItem('user', JSON.stringify(result));
+                return result;
                 }
             })
     }
