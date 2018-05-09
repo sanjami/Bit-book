@@ -1,8 +1,8 @@
 import React from 'react';
-import {Message} from 'semantic-ui-react';
+
 const ErrorComponent = (props) => {
     return(
-        <div warning className={props.errorMessage ? 'error':'invisible'}>
+        <div className={props.errorMessage > 0 ? 'error':'invisible'}>
         <div className='errMsg'>
        
        <p> An error has occurred:</p>

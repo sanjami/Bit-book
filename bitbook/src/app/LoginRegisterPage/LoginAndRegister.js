@@ -1,11 +1,6 @@
 import React from 'react';
-import { Tab, Container, Grid, Segment, Form, Button } from 'semantic-ui-react';
+import { Tab, Grid, Form, Button } from 'semantic-ui-react';
 import { authService } from '../../service/authenticationService';
-import ErrorComponent from '../sharedComponents/ErrorComponent';
-
-
-
-
 
 class LoginAndRegister extends React.Component {
     constructor(props) {
@@ -45,7 +40,7 @@ class LoginAndRegister extends React.Component {
                 errorUsernameLog: 'Username is too long!'
             })
 
-        } else if (username == '') {
+        } else if (username === '') {
             this.setState({
                 errorUsernameLog: 'Username is missing!'
             })
@@ -70,7 +65,7 @@ class LoginAndRegister extends React.Component {
             this.setState({
                 errorPasswordLog: 'Password is too long'
             })
-        } else if (pass == '') {
+        } else if (pass === '') {
             this.setState({
                 errorPasswordLog: 'Password is missing!'
             })
@@ -95,9 +90,7 @@ class LoginAndRegister extends React.Component {
                             loginUsername: '',
                             loginPassword: ''
                         })
-                    } else {
-                        window.location.assign('/');
-                    }
+                     } 
                 })
         }
 
@@ -262,7 +255,7 @@ class LoginAndRegister extends React.Component {
                     <Grid.Column computer={7} tablet={14} className='welcome-container'>
                         <div id='login'>
                             <h1>Welcome to Bitbook</h1><br />
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+                            <p>Create your own Bitbook profile and tell people about you. You can upload a photo, edit a profile, share your thoughts, photos and videos, comment on your own or other posts. Already have a Bitbook account? Sign in.</p>
                         </div>
 
                     </Grid.Column>

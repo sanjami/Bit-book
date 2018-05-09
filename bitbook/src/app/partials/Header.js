@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import { authService } from '../../service/authenticationService'
-import {Grid, Button} from 'semantic-ui-react';
+import {Grid } from 'semantic-ui-react';
 
 const Header = () => {
 
@@ -11,7 +11,6 @@ const Header = () => {
   }
 
   let userId = JSON.parse(sessionStorage.getItem('userId'));
-      console.log(userId)
   
     return <Grid className='bgColor' stackable colums={2}>
       <Grid.Column tablet={9} computer={10}>
