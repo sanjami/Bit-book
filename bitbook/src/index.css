@@ -81,12 +81,25 @@ body, html, root {
  width:100%;
 }
 
-.Modal{
+/* .Modal{
   position: absolute;
   top: 183px;
   left: 167px;
   right: 103px;
   bottom: 358px;
+  background-color: white;
+  border: 1px solid black;
+  padding:30px;
+} */
+
+.Modal {
+  position: fixed;
+  top: 50%;
+  right: auto;
+  bottom: auto;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  outline: 0;
   background-color: white;
   border: 1px solid black;
   padding:30px;
@@ -323,3 +336,4 @@ line-height: 1.8;
   font-size: 20px;
   color: red;
 }
+

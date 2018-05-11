@@ -190,7 +190,7 @@ class Profile extends Component {
                 <Form>
                 <Form.Group id="photoForm">
                     <Form.Field control={Input} type="file" accept=".jpg, .jpeg, .png" onChange={this.fileChangeHandler} width={8}/>
-                    <Form.Field control={Image} src={this.state.newPhotoUrl} width={1}/>
+                    <Form.Field control={Image} src={this.state.newPhotoUrl} width={5}/>
                     <Form.Field control={Button} onClick={this.addPhoto} width={3}>SUBMIT</Form.Field>
                     </Form.Group>
                 </Form>
@@ -230,7 +230,7 @@ class Profile extends Component {
                     <div className='four wide column'>
                     </div>
                 </div>
-                <Modal
+                <Modal className="Modal"
                     isOpen={this.state.modalIsOpen}
                     onRequestClose={this.closeModal}
                     className="Modal"

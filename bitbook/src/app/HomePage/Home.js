@@ -303,7 +303,7 @@ componentWillReceiveProps(nextProps) {
     renderVideoModal = () => {
         return (
 
-            <Container >
+            <Container>
                  <ErrorComponent errorMessage={this.state.error} />
                 <Form>
                     <h2 ref={subtitle => this.subtitle = subtitle} className='headline'>New video post</h2>

@@ -55,13 +55,13 @@ class People extends Component {
 
     render() {
         return <div className="ui grid">
-            <div className="five wide column" />
-            <div className="six wide column">
+            <div className="three wide column" />
+            <div className="ten wide column">
                 <Search handleChange={this.handleChange} inputValue={this.state.inputValue} />
                 <UserList myUsers={this.checkSearchUsers()} />
                 <ErrorComponent errorMessage={this.state.error} />
             </div>
-            <div className="five wide column"></div>
+            <div className="three wide column"></div>
         </div>
     }
 
